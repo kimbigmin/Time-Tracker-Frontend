@@ -217,6 +217,7 @@ function InputPage() {
 
     await getData(setData);
     setSelectedDate(selectedDate + 1);
+    alert("시간이 저장되었습니다.");
   };
 
   const updateHandler = async () => {
@@ -256,6 +257,7 @@ function InputPage() {
       body: JSON.stringify(timeData),
     });
     await getData(setData);
+    alert("시간 수정이 완료되었습니다.");
   };
   return (
     <>
