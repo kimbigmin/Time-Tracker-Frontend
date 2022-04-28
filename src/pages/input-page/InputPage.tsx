@@ -122,9 +122,9 @@ function InputPage() {
   const getId = (data: any) => {
     if (data) {
       return data
-        .map((item: OneDate) => {
+        .map((item: any) => {
           if (item.date === `${calender}.${selectedDate}`) {
-            return item.id;
+            return item.shortId;
           }
           return "";
         })
@@ -135,8 +135,9 @@ function InputPage() {
   const getFormInfo = async (data: any) => {
     if (data) {
       const id = await getId(data);
+      console.log(id);
       if (id) {
-        const response = await fetch(`http://localhost:3000/timedata/${id}`);
+        const response = await fetch(`http://localhost:3000/time/${id}`);
         const result = await response.json();
         setImproveTime((current) => {
           const newState = { ...current, ...result.improve };
@@ -205,8 +206,9 @@ function InputPage() {
     };
 
     // fetch POST
-    await fetch("http://localhost:3000/timedata", {
+    await fetch("http://localhost:3000/time", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -245,8 +247,9 @@ function InputPage() {
       entireTime,
     };
     // fetch POST
-    await fetch(`http://localhost:3000/timedata/${id}`, {
-      method: "PUT",
+    await fetch(`http://localhost:3000/time/${id}`, {
+      method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

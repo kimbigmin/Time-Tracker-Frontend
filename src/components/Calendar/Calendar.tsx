@@ -24,7 +24,13 @@ function Calender({
 
   useEffect(() => {
     async function getInputDoneDates() {
-      const response = await fetch("http://localhost:3000/timedata");
+      const response = await fetch("http://localhost:3000/time", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const result = await response.json();
       const done = result
         .map((item: OneDate) => {
