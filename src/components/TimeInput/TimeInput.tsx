@@ -34,7 +34,7 @@ function TimeInput({ dataNum }: any) {
           기록한 일수 <span className="record">{dataNum}</span>일
         </div>
 
-        <Link to="/input">
+        <Link to="/main/input">
           <button>시간기록하기</button>
         </Link>
       </div>

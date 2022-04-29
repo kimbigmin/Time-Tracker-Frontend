@@ -6,7 +6,7 @@ function Header() {
   return (
     <StyledHeader>
       <h1>
-        <Link to="/">Time Tracker</Link>
+        <Link to="/main">Time Tracker</Link>
       </h1>
       <div>
         <a>

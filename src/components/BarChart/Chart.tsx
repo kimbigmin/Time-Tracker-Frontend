@@ -268,7 +268,7 @@ function Chart({
         },
         formatter: (value: any, context: any) => {
           const hour = Math.floor(value);
-          const minutes = Math.floor((value - hour) * 60);
+          const minutes = Math.round((value - hour) * 62);
           return `${hour}시간 ${minutes}분`;
         },
       },

@@ -72,7 +72,7 @@ function Dashboard() {
               <h2>분석</h2>
               <div className="links">
                 <Link
-                  to="/analysis-week"
+                  to="/main/analysis/week"
                   state={{ type: ["주간", "주", "Week"] }}
                 >
                   <WeekBox>
@@ -81,7 +81,7 @@ function Dashboard() {
                   </WeekBox>
                 </Link>
                 <Link
-                  to="/analysis-month"
+                  to="/main/analysis/month"
                   state={{ type: ["월간", "달", "Month"] }}
                 >
                   <WeekBox>
@@ -92,7 +92,7 @@ function Dashboard() {
                   </WeekBox>
                 </Link>
                 <Link
-                  to="/analysis-year"
+                  to="/main/analysis/year"
                   state={{ type: ["연간", "년", "Year"] }}
                 >
                   <WeekBox>
