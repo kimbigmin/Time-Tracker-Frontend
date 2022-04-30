@@ -11,24 +11,9 @@ import axios from "axios";
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
 
-  useEffect((): any => {
-    axios
-      .post(
-        "http://localhost:3000/auth/silent-refresh",
-        {},
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        const { accessToken } = res.data;
-
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${accessToken}`;
-        setIsLogIn(true);
-      });
-  });
+  useEffect(() => {
+    if (document.cookie) setIsLogIn(true);
+  }, []);
 
   return (
     <Routes>
