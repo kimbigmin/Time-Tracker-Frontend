@@ -1,12 +1,15 @@
 import * as React from "react";
+import { Container, Box, Button } from "./style";
+import logo from "./Time_Tracker_logo.png";
 
 function LoginPage() {
   return (
-    <div>
-      <form>
-        <a href="http://localhost:3000/auth/google">구글 로그인</a>
-      </form>
-    </div>
+    <Container>
+      <Box>
+        <img src={logo} alt="logo"></img>
+        <Button href="http://localhost:3000/auth/google">구글 로그인</Button>
+      </Box>
+    </Container>
   );
 }
 
