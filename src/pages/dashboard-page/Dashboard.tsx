@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import Contribution from "../../components/Contribution/Contribution";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import TimeInput from "../../components/TimeInput/TimeInput";
 import { Link } from "react-router-dom";
 import { AnalysisBox, WeekBox } from "./style";
@@ -108,6 +109,7 @@ function Dashboard() {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </>
   );
 }

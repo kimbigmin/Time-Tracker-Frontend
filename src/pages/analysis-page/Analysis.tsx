@@ -2,6 +2,7 @@ import * as React from "react";
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import Chart from "../../components/BarChart/Chart";
 import { getData } from "../../utils/getData";
 import { getLastMondays } from "../../utils/getLastMondays";
@@ -314,6 +315,7 @@ function Analysis() {
           </ChartBox>
         </Container>
       </Main>
+      <Footer />
     </>
   );
 }

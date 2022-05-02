@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import InputForm from "../../components/InputForm/InputForm";
 import styled from "styled-components";
 import sumHoursMinutes from "../../utils/sumTime";
@@ -304,6 +305,7 @@ function InputPage() {
           getFormInfo={getFormInfo}
         />
       </Container>
+      <Footer />
     </>
   );
 }
@@ -311,6 +313,7 @@ function InputPage() {
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 2.5rem;
 `;
 
 export default InputPage;
