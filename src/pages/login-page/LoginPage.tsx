@@ -7,7 +7,7 @@ function LoginPage() {
     <Container>
       <Box>
         <img src={logo} alt="logo"></img>
-        <Button href="http://localhost:3000/auth/google">구글 로그인</Button>
+        <Button href="http://localhost:3000/auth/google">Google 로그인</Button>
       </Box>
     </Container>
   );

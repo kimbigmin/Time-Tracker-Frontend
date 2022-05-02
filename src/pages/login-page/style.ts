@@ -24,9 +24,15 @@ export const Button = styled.a`
   padding: 1rem;
   font-size: 1.1rem;
   font-weight: bold;
-  background-color: black;
+  background-color: #115599;
   color: white;
   width: 40%;
   border-radius: 15px;
   text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  &:hover {
+    background-color: #082a4d;
+    transition: 0.5s;
+  }
 `;

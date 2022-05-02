@@ -96,9 +96,11 @@ function InputForm({
           </Grid>
           <Grid item xs={6}>
             <FormContainer>
-              <h3>
+              <h3 className={entirePrivate !== "NaN:NaN" ? "" : "error"}>
                 개인시간:{" "}
-                {entirePrivate !== "NaN:NaN" ? entirePrivate : "입력중"}
+                {entirePrivate !== "NaN:NaN"
+                  ? entirePrivate
+                  : "올바른 형식을 입력해주세요."}
               </h3>
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -131,7 +133,12 @@ function InputForm({
 
           <Grid item xs={6}>
             <FormContainer>
-              <h3>일: {entireWorks !== "NaN:NaN" ? entireWorks : "입력중"}</h3>
+              <h3 className={entireWorks !== "NaN:NaN" ? "" : "error"}>
+                일:{" "}
+                {entireWorks !== "NaN:NaN"
+                  ? entireWorks
+                  : "올바른 형식을 입력해주세요."}
+              </h3>
               <TextField
                 sx={{ margin: "0.5rem" }}
                 id="text-work"
@@ -160,8 +167,11 @@ function InputForm({
           </Grid>
           <Grid item xs={6}>
             <FormContainer>
-              <h3>
-                취침: {entireSleep !== "NaN:NaN" ? entireSleep : "입력중"}
+              <h3 className={entireSleep !== "NaN:NaN" ? "" : "error"}>
+                취침:{" "}
+                {entireSleep !== "NaN:NaN"
+                  ? entireSleep
+                  : "올바른 형식을 입력해주세요."}
               </h3>
               <TextField
                 sx={{ margin: "0.5rem" }}
