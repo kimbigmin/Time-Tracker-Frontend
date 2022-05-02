@@ -209,7 +209,7 @@ function InputPage() {
       return acc + Number(val.split(":")[0]);
     }, 0);
 
-    if (sumEntire >= 20) {
+    if (sumEntire >= 20 && sumEntire <= 25) {
       // fetch POST
       await fetch("http://localhost:3000/time", {
         method: "POST",
@@ -255,17 +255,26 @@ function InputPage() {
       },
       entireTime,
     };
-    // fetch POST
-    await fetch(`http://localhost:3000/time/${id}`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(timeData),
-    });
-    await getData(setData);
-    alert("시간 수정이 완료되었습니다.");
+
+    const sumEntire = Object.values(entireTime).reduce((acc, val) => {
+      return acc + Number(val.split(":")[0]);
+    }, 0);
+
+    if (sumEntire >= 20 && sumEntire <= 25) {
+      // fetch POST
+      await fetch(`http://localhost:3000/time/${id}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(timeData),
+      });
+      await getData(setData);
+      alert("시간 수정이 완료되었습니다.");
+    } else {
+      alert("시간을 정확히 입력해주세요.");
+    }
   };
   return (
     <>
