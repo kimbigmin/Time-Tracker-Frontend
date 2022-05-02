@@ -1,7 +1,7 @@
 function msToTime(duration: number): string {
-  let seconds = ((duration / 1000) % 60).toFixed(0);
-  let minutes = ((duration / (1000 * 60)) % 60).toFixed(0);
-  let hours = ((duration / (1000 * 60 * 60)) % 24).toFixed(0);
+  let seconds = String(Math.floor((duration / 1000) % 60));
+  let minutes = String(Math.floor((duration / (1000 * 60)) % 60));
+  let hours = String(Math.floor((duration / (1000 * 60 * 60)) % 24));
 
   hours = Number(hours) < 10 ? "0" + hours : hours;
   minutes = Number(minutes) < 10 ? "0" + minutes : minutes;
