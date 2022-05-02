@@ -51,7 +51,7 @@ function InputForm({
                 name="study"
                 onChange={improveHandler}
                 autoFocus
-                value={improveTime ? improveTime.study : ""}
+                value={improveTime ? improveTime.study : "0:00"}
               />
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -64,7 +64,7 @@ function InputForm({
                 color="warning"
                 name="workout"
                 onChange={improveHandler}
-                value={improveTime ? improveTime.workout : ""}
+                value={improveTime ? improveTime.workout : "0:00"}
               />
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -77,7 +77,7 @@ function InputForm({
                 color="warning"
                 name="reading"
                 onChange={improveHandler}
-                value={improveTime ? improveTime.reading : ""}
+                value={improveTime ? improveTime.reading : "0:00"}
               />
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -90,7 +90,7 @@ function InputForm({
                 color="warning"
                 name="rest"
                 onChange={improveHandler}
-                value={improveTime ? improveTime.rest : ""}
+                value={improveTime ? improveTime.rest : "0:00"}
               />
             </FormContainer>
           </Grid>
@@ -113,7 +113,7 @@ function InputForm({
                 color="error"
                 name="privates"
                 onChange={privateHandler}
-                value={privateTime ? privateTime.privates : ""}
+                value={privateTime ? privateTime.privates : "0:00"}
               />
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -126,7 +126,7 @@ function InputForm({
                 color="error"
                 name="game"
                 onChange={privateHandler}
-                value={privateTime ? privateTime.game : ""}
+                value={privateTime ? privateTime.game : "0:00"}
               />
             </FormContainer>
           </Grid>
@@ -149,7 +149,7 @@ function InputForm({
                 size="small"
                 name="works"
                 onChange={worksHandler}
-                value={worksTime ? worksTime.works : ""}
+                value={worksTime ? worksTime.works : "0:00"}
               />
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -161,7 +161,7 @@ function InputForm({
                 size="small"
                 name="houseWork"
                 onChange={worksHandler}
-                value={worksTime ? worksTime.houseWork : ""}
+                value={worksTime ? worksTime.houseWork : "0:00"}
               />
             </FormContainer>
           </Grid>
@@ -184,7 +184,7 @@ function InputForm({
                 color="secondary"
                 name="night"
                 onChange={sleepHandler}
-                value={sleepTime ? sleepTime.night : ""}
+                value={sleepTime ? sleepTime.night : "0:00"}
               />
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -197,7 +197,7 @@ function InputForm({
                 color="secondary"
                 name="nap"
                 onChange={sleepHandler}
-                value={sleepTime ? sleepTime.nap : ""}
+                value={sleepTime ? sleepTime.nap : "0:00"}
               />
 
               <TextField
@@ -211,7 +211,7 @@ function InputForm({
                 color="secondary"
                 name="sleep"
                 onChange={sleepHandler}
-                value={sleepTime ? sleepTime.sleep : ""}
+                value={sleepTime ? sleepTime.sleep : "0:00"}
               />
               <TextField
                 sx={{ margin: "0.5rem" }}
@@ -224,7 +224,7 @@ function InputForm({
                 color="secondary"
                 name="wake"
                 onChange={sleepHandler}
-                value={sleepTime ? sleepTime.wake : ""}
+                value={sleepTime ? sleepTime.wake : "0:00"}
               />
             </FormContainer>
           </Grid>
