@@ -115,8 +115,15 @@ function Analysis() {
     pageType.current[2],
     data
   );
-  console.log(restLastMonth);
-  console.log(thisList);
+
+  // 날짜 정렬 sort
+  thisList.sort((a: any, b: any) => {
+    const aDay = new Date(a.date).getTime();
+    const bDay = new Date(b.date).getTime();
+
+    return aDay - bDay;
+  });
+
   // 이번주, 저번주 전체 시간 가져오기
   const entireTimes = getEntireTimes(thisList);
   const lastEntireTimes = getEntireTimes(lastList);
