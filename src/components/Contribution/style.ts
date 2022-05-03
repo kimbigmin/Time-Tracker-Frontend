@@ -9,13 +9,15 @@ export const Container = styled.div`
 
   .month {
     display: flex;
-    justify-content: flex-start;
+    margin-left: ${(props: { date: any }): any => {
+      return `-${(Math.floor(props.date / 7) * 9) / 28}rem`;
+    }};
     width: 100%;
   }
 
   li {
     font-size: 0.5rem;
-    margin-right: 2rem;
+    margin-left: 2rem;
     margin-top: 1rem;
   }
 `;
