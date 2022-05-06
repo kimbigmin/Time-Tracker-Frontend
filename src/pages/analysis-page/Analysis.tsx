@@ -60,6 +60,9 @@ function Analysis() {
   const sunday = getLastSunday(monday);
   const lastSunday = getLastSunday(lastMonday);
 
+  const isLastPage =
+    sunday < new Date(`${thisYear}.${thisMonth}.${today}`).getTime();
+
   const getMonthList = (beforeMonth: number = 0): any => {
     return data.filter((item: OneDate) => {
       let month = Number(selectedDate.current.month) - beforeMonth;
@@ -171,10 +174,7 @@ function Analysis() {
     if (e.target.dataset.type === "before") {
       setWeekRange(weekRange - 1);
     } else if (e.target.dataset.type === "after") {
-      if (weekRange !== 0) {
-        setWeekRange(weekRange + 1);
-      }
-      console.log(weekRange);
+      setWeekRange(weekRange + 1);
     }
   };
 
@@ -228,7 +228,7 @@ function Analysis() {
               ).getFullYear()}.${new Date(sunday).getMonth() + 1}.${new Date(
                 sunday
               ).getDate()} (일)`}</p>
-              {weekRange !== 0 && (
+              {isLastPage && (
                 <button data-type="after" onClick={buttonWeekHandler}>
                   ▶️
                 </button>
