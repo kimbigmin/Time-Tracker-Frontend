@@ -210,7 +210,7 @@ function InputPage() {
       return acc + Number(val.split(":")[0]);
     }, 0);
 
-    if (sumEntire >= 20 && sumEntire <= 30) {
+    if (sumEntire >= 10 && sumEntire <= 30) {
       // fetch POST
       await fetch("http://localhost:3000/time", {
         method: "POST",
@@ -261,7 +261,7 @@ function InputPage() {
       return acc + Number(val.split(":")[0]);
     }, 0);
 
-    if (sumEntire >= 20 && sumEntire <= 30) {
+    if (sumEntire >= 10 && sumEntire <= 30) {
       // fetch POST
       await fetch(`http://localhost:3000/time/${id}`, {
         method: "POST",
