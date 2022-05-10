@@ -20,6 +20,7 @@ function InputPage() {
   });
   const [selectedDate, setSelectedDate] = useState(new Date().getDate());
   const [finishedDay, setFinishedDays] = useState([]);
+
   const [improveTime, setImproveTime] = useState(() => {
     const newState = {
       study: "",
@@ -277,6 +278,7 @@ function InputPage() {
       alert("시간을 정확히 입력해주세요.");
     }
   };
+
   return (
     <>
       <Header />

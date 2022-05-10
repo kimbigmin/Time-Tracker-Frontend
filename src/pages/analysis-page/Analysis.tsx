@@ -144,7 +144,7 @@ function Analysis() {
     lastSumDetailTimes
   );
   const isThisWeek = sunday + 86400000 > new Date().getTime();
-  console.log(isThisWeek, sunday);
+
   const sleepingAverage = getSleepingAverage(
     sumDetailTimes,
     lastSumDetailTimes,
