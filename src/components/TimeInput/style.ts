@@ -83,6 +83,11 @@ export const StyledInput = styled.div`
       font-size: 1rem;
       cursor: pointer;
       box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+      &:hover {
+        background-color: #082a4d;
+        transition-duration: 0.5s;
+      }
     }
   }
 `;
