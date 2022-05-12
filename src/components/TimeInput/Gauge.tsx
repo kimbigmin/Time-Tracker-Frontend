@@ -1,11 +1,12 @@
 import * as React from "react";
 import { useState } from "react";
+import useInterval from "../../hooks/useInterval";
 import msToTime from "../../utils/msToTime";
 
 export const Gauge = ({ tomorrow }: any) => {
   const [remainTime, setRemainTime] = useState<string | null>(null);
 
-  setInterval(() => {
+  useInterval(() => {
     setRemainTime(msToTime(tomorrow - Date.now()));
   }, 1000);
 
