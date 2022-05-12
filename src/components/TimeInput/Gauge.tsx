@@ -2,11 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import msToTime from "../../utils/msToTime";
 
-export const Gauge = () => {
-  const today = new Date().toLocaleDateString();
-  const MS_ONE_DAY = 86400000;
-  const tomorrow: number = new Date(today).getTime() + MS_ONE_DAY;
-
+export const Gauge = ({ tomorrow }: any) => {
   const [remainTime, setRemainTime] = useState<string | null>(null);
 
   setInterval(() => {

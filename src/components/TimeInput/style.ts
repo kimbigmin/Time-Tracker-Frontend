@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledInput = styled.div`
+export const StyledTimeInput = styled.div`
   $buttonColor: #1671cc;
   h2 {
     font-size: 1rem;
