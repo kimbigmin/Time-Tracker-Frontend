@@ -16,7 +16,6 @@ export const Gauge = () => {
   return (
     <>
       <h2>오늘 하루 잔여 시간</h2>
-
       <span className="progress-bar">
         <span className="remaining-time">{remainTime}</span>
         <span className="gauge"></span>
