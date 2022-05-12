@@ -1,8 +1,7 @@
 import * as React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import getDay from "../../utils/getDay";
-import msToTime from "../../utils/msToTime";
+import { Gauge } from "./Gauge";
 import { StyledInput } from "./style";
 
 function TimeInput({ dataNum }: any) {
@@ -12,22 +11,9 @@ function TimeInput({ dataNum }: any) {
   const tomorrow: number = new Date(today).getTime() + MS_ONE_DAY;
   const propsTime = tomorrow - Date.now();
 
-  const [remainTime, setRemainTime] = useState<string | null>(null);
-
-  setInterval(() => {
-    setRemainTime(msToTime(tomorrow - Date.now()));
-  }, 1000);
-
   return (
     <StyledInput time={propsTime}>
-      <h2>오늘 하루 잔여 시간</h2>
-
-      <span className="progress-bar">
-        <span className="remaining-time">{remainTime}</span>
-        <span className="gauge"></span>
-        <i className="fas fa-running"></i>
-      </span>
-
+      <Gauge></Gauge>
       <div className="time-input">
         <h3>{today + day}</h3>
         <div className="record-box">
