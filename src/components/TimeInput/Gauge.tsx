@@ -4,7 +4,9 @@ import useInterval from "../../hooks/useInterval";
 import msToTime from "../../utils/msToTime";
 
 export const Gauge = ({ tomorrow }: any) => {
-  const [remainTime, setRemainTime] = useState<string | null>(null);
+  const [remainTime, setRemainTime] = useState<String>(
+    msToTime(tomorrow - Date.now())
+  );
 
   useInterval(() => {
     setRemainTime(msToTime(tomorrow - Date.now()));
