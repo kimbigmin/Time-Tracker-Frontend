@@ -1,5 +1,7 @@
-export interface OneDate {
-  id: number;
+export interface OneDay {
+  _id: string;
+  author: string;
+  shortId: string;
   date: string;
   improve: {
     [key: string]: string;
@@ -16,13 +18,23 @@ export interface OneDate {
   entireTime: {
     [key: string]: string;
   };
+  createdAt: string;
+  updatedAt: string;
 }
 
-export type AllDate = OneDate[];
+export type AllDates = OneDay[];
+
+export type EachTime = {
+  [key: string]: string;
+};
+
+export type sumTime = {
+  [key: string]: number;
+};
 
 export type DateAction = {
   type: string;
-  date: OneDate;
+  date: OneDay;
 };
 
 export type DispatchType = (args: DateAction) => DateAction;

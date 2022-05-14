@@ -16,7 +16,7 @@ import WeekStatus from "../../components/WeekStatus/WeekStatus";
 import { getData } from "../../utils/getData";
 import { getLastMondays } from "../../utils/getLastMondays";
 import { getLastSunday } from "../../utils/getLastSunday";
-import { OneDate } from "../../type";
+import { OneDay } from "../../type";
 import { getMainSumTimes, getDetailSumTimes } from "../../utils/getSumTimesObj";
 import { getEntireTimes } from "../../utils/getEntireTimes";
 import DoughnutChart from "../../components/DoughnutChart/DoughnutChart";
@@ -34,12 +34,11 @@ function Dashboard() {
   const sunday = getLastSunday(monday);
   const lastSunday = getLastSunday(lastMonday);
 
-  const thisWeekList = data.filter((item: OneDate) => {
+  const thisWeekList: OneDay[] | undefined = data.filter((item: OneDay) => {
     const date = new Date(item.date).getTime();
     return date >= monday && date <= sunday;
   });
-
-  const lastWeekList = data.filter((item: OneDate) => {
+  const lastWeekList: OneDay[] | undefined = data.filter((item: OneDay) => {
     const date = new Date(item.date).getTime();
     return date >= lastMonday && date <= lastSunday;
   });

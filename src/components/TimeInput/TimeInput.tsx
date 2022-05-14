@@ -4,11 +4,11 @@ import { Gauge } from "./Gauge";
 import { Record } from "./Record";
 import { StyledTimeInput } from "./style";
 
-type Props = {
+type TimeInputProps = {
   dataLength: number;
 };
 
-function TimeInput({ dataLength }: Props) {
+function TimeInput({ dataLength }: TimeInputProps) {
   const today = new Date().toLocaleDateString();
   const day = getDay();
   const ONE_DAY_MS = 86400000;

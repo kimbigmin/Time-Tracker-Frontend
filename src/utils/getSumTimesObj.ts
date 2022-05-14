@@ -1,6 +1,7 @@
 import { getSumTime } from "./getSumTime";
+import { EachTime, sumTime } from "../type";
 
-export const getMainSumTimes = (timeLists: any) => {
+export const getMainSumTimes = (timeLists: EachTime[]): sumTime => {
   return {
     sumImprove: getSumTime(timeLists, "entireImprove"),
     sumPrivate: getSumTime(timeLists, "entirePrivate"),
@@ -9,7 +10,7 @@ export const getMainSumTimes = (timeLists: any) => {
   };
 };
 
-export const getDetailSumTimes = (timeLists: any) => {
+export const getDetailSumTimes = (timeLists: any): sumTime => {
   return {
     sumStudy: getSumTime(timeLists, "improve", "study"),
     sumGame: getSumTime(timeLists, "private", "game"),

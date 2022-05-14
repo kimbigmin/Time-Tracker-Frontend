@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect } from "react";
 import { Container } from "./style";
-import { OneDate } from "../../type";
+import { OneDay } from "../../type";
 
 function Calender({
   calender,
@@ -33,7 +33,7 @@ function Calender({
       });
       const result = await response.json();
       const done = result
-        .map((item: OneDate) => {
+        .map((item: OneDay) => {
           if (item.date.includes(calender)) {
             return item.date.split(".")[2];
           }

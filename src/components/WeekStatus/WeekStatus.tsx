@@ -1,8 +1,17 @@
 import * as React from "react";
 import { WeekStatusBox, Gauge } from "./style";
 import { convertMinToTime } from "../../utils/convertMinToTime";
+import { sumTime } from "../../type";
 
-function WeekStatus({ data }: any) {
+type WeekSumData = {
+  [key: string]: sumTime;
+};
+
+type WeekStatusProps = {
+  data: WeekSumData;
+};
+
+function WeekStatus({ data }: WeekStatusProps) {
   const improvePercent = (
     (data.sumTimes.sumImprove / data.lastSumTimes.sumImprove) *
     100

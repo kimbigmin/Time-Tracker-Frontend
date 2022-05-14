@@ -2,7 +2,7 @@ import * as react from "react";
 import { Container, Box } from "./style";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
-import { OneDate } from "../../type";
+import { OneDay } from "../../type";
 import { getEntireTimes } from "../../utils/getEntireTimes";
 import { getMainSumTimes } from "../../utils/getSumTimesObj";
 import { minutesToHours } from "../../utils/minutesToHours";
@@ -14,7 +14,7 @@ function DoughnutChart({ data }: any) {
   const thisYear = new Date().getFullYear();
   const thisMonth = new Date().getMonth() + 1;
 
-  const thisMonthList = data.filter((item: OneDate) => {
+  const thisMonthList = data.filter((item: OneDay) => {
     return item.date.includes(`${thisYear}.${thisMonth}`);
   });
 

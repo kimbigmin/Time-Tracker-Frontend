@@ -8,7 +8,7 @@ import sumHoursMinutes from "../../utils/sumTime";
 import Calender from "../../components/Calendar/Calendar";
 import { getData } from "../../utils/getData";
 import { minutesToHours } from "../../utils/minutesToHours";
-import { OneDate } from "../../type";
+import { OneDay } from "../../type";
 
 function InputPage() {
   const [data, setData] = useState(null);

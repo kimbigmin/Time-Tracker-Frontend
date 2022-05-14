@@ -1,5 +1,5 @@
-import { OneDate } from "../type";
+import { OneDay } from "../type";
 
-export const getEntireTimes = (lists: any) => {
-  return lists.map((item: OneDate) => item.entireTime);
+export const getEntireTimes = (lists: OneDay[]) => {
+  return lists.map((item: OneDay) => item.entireTime);
 };

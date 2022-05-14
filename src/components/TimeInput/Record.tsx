@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-type Props = {
+type RecordProps = {
   dataLength: number;
   today: string;
   day: string | undefined;
 };
 
-export const Record = ({ dataLength, today, day }: Props) => {
+export const Record = ({ dataLength, today, day }: RecordProps) => {
   return (
     <>
       <div className="time-input">

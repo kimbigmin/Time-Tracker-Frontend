@@ -14,7 +14,7 @@ import {
   getDetailTimesPercent,
 } from "../../utils/getTimesPercent";
 import { getSleepingAverage } from "../../utils/getSleepAverage";
-import { OneDate } from "../../type";
+import { OneDay } from "../../type";
 import {
   Box,
   Time,
@@ -64,7 +64,7 @@ function Analysis() {
     sunday < new Date(`${thisYear}.${thisMonth}.${today}`).getTime();
 
   const getMonthList = (beforeMonth: number = 0): any => {
-    return data.filter((item: OneDate) => {
+    return data.filter((item: OneDay) => {
       let month = Number(selectedDate.current.month) - beforeMonth;
       let year = Number(selectedDate.current.year);
 
@@ -79,12 +79,12 @@ function Analysis() {
   // 데이터에서 날짜리스트 뽑아오기
   const getDateList = (pageType: any, data: any) => {
     if (pageType === "Week") {
-      const thisList = data.filter((item: OneDate) => {
+      const thisList = data.filter((item: OneDay) => {
         const date = new Date(item.date).getTime();
         return date >= monday && date <= sunday;
       });
 
-      const lastList = data.filter((item: OneDate) => {
+      const lastList = data.filter((item: OneDay) => {
         const date = new Date(item.date).getTime();
         return date >= lastMonday && date <= lastSunday;
       });
@@ -103,11 +103,11 @@ function Analysis() {
 
       return { thisList, lastList, restLastMonth };
     } else {
-      const thisList = data.filter((item: OneDate) => {
+      const thisList = data.filter((item: OneDay) => {
         return item.date.includes(`${selectedDate.current.year}`);
       });
 
-      const lastList = data.filter((item: OneDate) => {
+      const lastList = data.filter((item: OneDay) => {
         return item.date.includes(`${Number(selectedDate.current.year) - 1}`);
       });
 
