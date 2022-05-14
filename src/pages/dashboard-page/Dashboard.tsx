@@ -63,7 +63,7 @@ function Dashboard() {
       <Container maxWidth="lg" sx={{ marginTop: "3rem" }}>
         <Grid container spacing={4}>
           <Grid item xs={6}>
-            <TimeInput dataNum={data.length} />
+            <TimeInput dataLength={data.length} />
             <WeekStatus data={weekStatusData} />
             <DoughnutChart data={data}></DoughnutChart>
           </Grid>

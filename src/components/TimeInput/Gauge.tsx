@@ -3,7 +3,11 @@ import { useState } from "react";
 import useInterval from "../../hooks/useInterval";
 import msToTime from "../../utils/msToTime";
 
-export const Gauge = ({ tomorrow }: any) => {
+type Props = {
+  tomorrow: number;
+};
+
+export const Gauge = ({ tomorrow }: Props) => {
   const [remainTime, setRemainTime] = useState<String>(
     msToTime(tomorrow - Date.now())
   );

@@ -4,7 +4,11 @@ import { Gauge } from "./Gauge";
 import { Record } from "./Record";
 import { StyledTimeInput } from "./style";
 
-function TimeInput({ dataNum }: any) {
+type Props = {
+  dataLength: number;
+};
+
+function TimeInput({ dataLength }: Props) {
   const today = new Date().toLocaleDateString();
   const day = getDay();
   const ONE_DAY_MS = 86400000;
@@ -14,7 +18,7 @@ function TimeInput({ dataNum }: any) {
   return (
     <StyledTimeInput time={propsTime}>
       <Gauge tomorrow={tomorrow}></Gauge>
-      <Record dataNum={dataNum} today={today} day={day}></Record>
+      <Record dataLength={dataLength} today={today} day={day}></Record>
     </StyledTimeInput>
   );
 }
