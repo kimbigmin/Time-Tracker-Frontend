@@ -1,7 +1,7 @@
 import * as React from "react";
-import { WeekStatusBox, Gauge } from "./style";
-import { convertMinToTime } from "../../utils/convertMinToTime";
+import { WeekStatusBox } from "./style";
 import { sumTime } from "../../type";
+import CategoryGauge from "./CategoryGauge";
 
 type WeekSumData = {
   [key: string]: sumTime;
@@ -12,77 +12,58 @@ type WeekStatusProps = {
 };
 
 function WeekStatus({ data }: WeekStatusProps) {
-  const improvePercent = (
-    (data.sumTimes.sumImprove / data.lastSumTimes.sumImprove) *
-    100
-  ).toFixed(1);
-
-  const privatePercent = (
-    (data.sumTimes.sumPrivate / data.lastSumTimes.sumPrivate) *
-    100
-  ).toFixed(1);
-
-  const studyPercent = (
-    (data.sumDetailTimes.sumStudy / data.lastSumDetailTimes.sumStudy) *
-    100
-  ).toFixed(1);
-
-  const sleepPercent = (
-    (data.sumTimes.sumSleep / data.lastSumTimes.sumSleep) *
-    100
-  ).toFixed(1);
+  const percents = {
+    improvePercent: getPercent(
+      data.sumTimes.sumImprove,
+      data.lastSumTimes.sumImprove
+    ),
+    privatePercent: getPercent(
+      data.sumTimes.sumPrivate,
+      data.lastSumTimes.sumPrivate
+    ),
+    studyPercent: getPercent(
+      data.sumDetailTimes.sumStudy,
+      data.lastSumDetailTimes.sumStudy
+    ),
+    sleepPercent: getPercent(
+      data.sumTimes.sumSleep,
+      data.lastSumTimes.sumSleep
+    ),
+  };
 
   return (
     <WeekStatusBox>
       <h3>이번주 시간 상황</h3>
       <div className="content-box">
         <ul>
-          <Gauge percent={improvePercent} type={"IMPROVE_TIME"}>
-            <div className="top">
-              <h3>자기계발: {convertMinToTime(data.sumTimes.sumImprove)}</h3>
-              <p>지난주 기준</p>
-            </div>
-            <span className="progress-bar">
-              <span className="remaining-time">{improvePercent}%</span>
-              <span className="gauge"></span>
-            </span>
-          </Gauge>
-          <Gauge percent={privatePercent} type={"PRIVATE_TIME"}>
-            <div className="top">
-              <h3>개인시간: {convertMinToTime(data.sumTimes.sumPrivate)}</h3>
-              <p>지난주 기준</p>
-            </div>
-            <span className="progress-bar">
-              <span className="remaining-time">{privatePercent}%</span>
-              <span className="gauge"></span>
-            </span>
-          </Gauge>
-          <Gauge percent={studyPercent} type={"STUDY_TIME"}>
-            <div className="top">
-              <h3>
-                공부시간: {convertMinToTime(data.sumDetailTimes.sumStudy)}
-              </h3>
-              <p>지난주 기준</p>
-            </div>
-            <span className="progress-bar">
-              <span className="remaining-time">{studyPercent}%</span>
-              <span className="gauge"></span>
-            </span>
-          </Gauge>
-          <Gauge percent={sleepPercent} type={"SLEEP_TIME"}>
-            <div className="top">
-              <h3>취침: {convertMinToTime(data.sumTimes.sumSleep)}</h3>
-              <p>지난주 기준</p>
-            </div>
-            <span className="progress-bar">
-              <span className="remaining-time">{sleepPercent}%</span>
-              <span className="gauge"></span>
-            </span>
-          </Gauge>
+          <CategoryGauge
+            percent={percents.improvePercent}
+            sumTime={data.sumTimes.sumImprove}
+            type="IMPROVE_TIME"
+          />
+          <CategoryGauge
+            percent={percents.privatePercent}
+            sumTime={data.sumTimes.sumPrivate}
+            type="PRIVATE_TIME"
+          />
+          <CategoryGauge
+            percent={percents.studyPercent}
+            sumTime={data.sumDetailTimes.sumStudy}
+            type="STUDY_TIME"
+          />
+          <CategoryGauge
+            percent={percents.sleepPercent}
+            sumTime={data.sumTimes.sumSleep}
+            type="SLEEP_TIME"
+          />
         </ul>
       </div>
     </WeekStatusBox>
   );
 }
+
+const getPercent = (current: number, last: number): string => {
+  return ((current / last) * 100).toFixed(1);
+};
 
 export default WeekStatus;
