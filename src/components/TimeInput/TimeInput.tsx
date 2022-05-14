@@ -1,6 +1,6 @@
 import * as React from "react";
 import getDay from "../../utils/getDay";
-import { Gauge } from "./Gauge";
+import TimeGauge from "./TimeGauge";
 import { Record } from "./Record";
 import { StyledTimeInput } from "./style";
 
@@ -17,7 +17,7 @@ function TimeInput({ dataLength }: TimeInputProps) {
 
   return (
     <StyledTimeInput time={propsTime}>
-      <Gauge tomorrow={tomorrow}></Gauge>
+      <TimeGauge tomorrow={tomorrow}></TimeGauge>
       <Record dataLength={dataLength} today={today} day={day}></Record>
     </StyledTimeInput>
   );
