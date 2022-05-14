@@ -2,7 +2,7 @@ export const randomContents = () => {
   const wises = [
     {
       content: "시간을 지배할 줄 아는 사람은 인생을 지배할 줄 아는 사람이다.",
-      author: "-에센 바흐-",
+      author: "에센 바흐",
     },
     {
       content:
@@ -127,6 +127,6 @@ export const randomContents = () => {
       author: "호레스",
     },
   ];
-
-  return wises[Math.floor(Math.random() * wises.length)];
+  const randomIndex = (new Date().getDate() * wises.length) % wises.length;
+  return wises[randomIndex];
 };
