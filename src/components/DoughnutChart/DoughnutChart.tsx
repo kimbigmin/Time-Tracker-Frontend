@@ -1,7 +1,7 @@
 import * as react from "react";
 import { Container, Box } from "./style";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { OneDay } from "../../type";
 import { getEntireTimes } from "../../utils/getEntireTimes";
 import { getMainSumTimes } from "../../utils/getSumTimesObj";
@@ -10,7 +10,11 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-function DoughnutChart({ data }: any) {
+type DoughnutChartProps = {
+  data: OneDay[];
+};
+
+function DoughnutChart({ data }: DoughnutChartProps) {
   const thisYear = new Date().getFullYear();
   const thisMonth = new Date().getMonth() + 1;
 
@@ -72,7 +76,6 @@ function DoughnutChart({ data }: any) {
           size: 13,
         },
         formatter: (value: any, context: any) => {
-          console.log(value);
           const sum = context.dataset.data.reduce(
             (acc: number, val: number) => {
               return acc + val;

@@ -14,6 +14,7 @@ import {
 import { getMainSumTimes, getDetailSumTimes } from "../../utils/getSumTimesObj";
 import { getEntireTimes } from "../../utils/getEntireTimes";
 import { convertMinToTime } from "../../utils/convertMinToTime";
+import { OneDay } from "../../type";
 
 ChartJS.register(
   CategoryScale,
@@ -24,17 +25,36 @@ ChartJS.register(
   Legend
 );
 
+type ChartProps = {
+  thisList: OneDay[];
+  lastList: OneDay[];
+  pageType: string;
+  restList: any;
+
+  selectedDate: React.MutableRefObject<{
+    year: string;
+    month: string;
+  }>;
+};
+
 function Chart({
   thisList,
   lastList,
   pageType,
   restList = "undefined",
   selectedDate,
-}: any) {
+}: ChartProps) {
   const year = Number(selectedDate.current.year);
   const month = Number(selectedDate.current.month);
 
   const { twoMonthAgo, threeMonthAgo, fourMonthAgo, fiveMonthAgo } = restList;
+
+  const getMonthSumtimes = (monthList: OneDay[]) => {
+    return {
+      ...getMainSumTimes(getEntireTimes(monthList)),
+      ...getDetailSumTimes(monthList),
+    };
+  };
 
   const monthList =
     pageType[2] !== "Month"
@@ -42,54 +62,41 @@ function Chart({
       : [
           {
             beforeMonth: 5,
-            sumTimes: {
-              ...getMainSumTimes(getEntireTimes(fiveMonthAgo)),
-              ...getDetailSumTimes(fiveMonthAgo),
-            },
+            sumTimes: getMonthSumtimes(fiveMonthAgo),
           },
           {
             beforeMonth: 4,
-            sumTimes: {
-              ...getMainSumTimes(getEntireTimes(fourMonthAgo)),
-              ...getDetailSumTimes(fourMonthAgo),
-            },
+            sumTimes: getMonthSumtimes(fourMonthAgo),
           },
           {
             beforeMonth: 3,
-            sumTimes: {
-              ...getMainSumTimes(getEntireTimes(threeMonthAgo)),
-              ...getDetailSumTimes(threeMonthAgo),
-            },
+            sumTimes: getMonthSumtimes(threeMonthAgo),
           },
           {
             beforeMonth: 2,
-            sumTimes: {
-              ...getMainSumTimes(getEntireTimes(twoMonthAgo)),
-              ...getDetailSumTimes(twoMonthAgo),
-            },
+            sumTimes: getMonthSumtimes(twoMonthAgo),
           },
           {
             beforeMonth: 1,
-            sumTimes: {
-              ...getMainSumTimes(getEntireTimes(lastList)),
-              ...getDetailSumTimes(lastList),
-            },
+            sumTimes: getMonthSumtimes(lastList),
           },
           {
             beforeMonth: 0,
-            sumTimes: {
-              ...getMainSumTimes(getEntireTimes(thisList)),
-              ...getDetailSumTimes(thisList),
-            },
+            sumTimes: getMonthSumtimes(thisList),
           },
         ];
-  console.log(monthList);
-  const [selectedList, setSelectedList] = useState({
+
+  type SelectedList = {
+    list: string | undefined;
+    title: string | null;
+  };
+
+  const [selectedList, setSelectedList] = useState<SelectedList>({
     list: "IMPROVE_TIME",
     title: "자기계발",
   });
 
-  const getChartData = (dayData: any) => {
+  const getChartData = (dayData: OneDay) => {
     const improveArr = dayData.entireTime.entireImprove.split(":");
     const privateArr = dayData.entireTime.entirePrivate.split(":");
     const sleepArr = dayData.entireTime.entireSleep.split(":");
@@ -99,18 +106,18 @@ function Chart({
 
     switch (selectedList.list) {
       case "IMPROVE_TIME":
-        return Number(improveArr[0]) + Number(improveArr[1] * 0.016);
+        return Number(improveArr[0]) + Number(+improveArr[1] * 0.016);
       case "PRIVATE_TIME":
-        return Number(privateArr[0]) + Number(privateArr[1] * 0.016);
+        return Number(privateArr[0]) + Number(+privateArr[1] * 0.016);
 
       case "SLEEP_TIME":
-        return Number(sleepArr[0]) + Number(sleepArr[1] * 0.016);
+        return Number(sleepArr[0]) + Number(+sleepArr[1] * 0.016);
       case "WORK_TIME":
-        return Number(worksArr[0]) + Number(worksArr[1] * 0.016);
+        return Number(worksArr[0]) + Number(+worksArr[1] * 0.016);
       case "STUDY_TIME":
-        return Number(studyArr[0]) + Number(studyArr[1] * 0.016);
+        return Number(studyArr[0]) + Number(+studyArr[1] * 0.016);
       case "READING_TIME":
-        return Number(readingArr[0]) + Number(readingArr[1] * 0.016);
+        return Number(readingArr[0]) + Number(+readingArr[1] * 0.016);
     }
   };
 
@@ -146,14 +153,14 @@ function Chart({
   const weekDataSets = [
     {
       label: `지난${pageType[1]}`,
-      data: lastList.map((day: any) => {
+      data: lastList.map((day: OneDay) => {
         return getChartData(day);
       }),
       backgroundColor: "rgba(71, 71, 71, 0.3)",
     },
     {
       label: `이번${pageType[1]}`,
-      data: thisList.map((day: any) => {
+      data: thisList.map((day: OneDay) => {
         return getChartData(day);
       }),
       backgroundColor: () => {
@@ -266,7 +273,7 @@ function Chart({
         font: {
           size: 10,
         },
-        formatter: (value: any, context: any) => {
+        formatter: (value: number) => {
           const hour = Math.floor(value);
           const minutes = Math.round((value - hour) * 62);
           return `${hour}시간 ${minutes}분`;
@@ -276,21 +283,24 @@ function Chart({
     scales: {
       y: {
         ticks: {
-          callback: (value: any, index: any, ticks: any) => {
-            return `${Math.floor(value)}시간`;
+          callback: (value: number | string): string => {
+            return `${Math.floor(+value)}시간`;
           },
         },
       },
     },
   };
 
-  const listClickHandler = (e: any): void => {
-    if (e.target.tagName === "LI") {
-      const clickedLabel: string = e.target.dataset.labels;
+  const listClickHandler = (e: React.MouseEvent<HTMLUListElement>): void => {
+    const target = e.target as HTMLUListElement;
+
+    if (target.tagName === "LI") {
+      const clickedLabel: string | undefined = target.dataset.labels;
+
       setSelectedList({
         ...selectedList,
         list: clickedLabel,
-        title: e.target.textContent,
+        title: target.textContent,
       });
     }
   };

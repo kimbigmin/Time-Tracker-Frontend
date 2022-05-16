@@ -1,15 +1,20 @@
 import * as React from "react";
 import { ContributionBox, Container } from "./style";
+import { OneDay } from "../../type";
 
-function Contribution({ data }: any) {
+type ContributionProps = {
+  data: OneDay[];
+};
+
+function Contribution({ data }: ContributionProps) {
   const dayNum = 369;
 
   const thisYear = String(new Date().getFullYear());
   const today = new Date().toDateString();
   const MS_ONE_DAY = 86400000;
 
-  const findWrittenDateIndex = data.map((el: any) => {
-    if (el.date.includes(thisYear) || el.date.includes(Number(thisYear) - 1)) {
+  const findWrittenDateIndex = data.map((el: OneDay) => {
+    if (el.date.includes(thisYear) || el.date.includes(String(+thisYear - 1))) {
       const dayDiff = new Date(today).getTime() - new Date(el.date).getTime();
       const dayFromToday = dayDiff / MS_ONE_DAY;
 

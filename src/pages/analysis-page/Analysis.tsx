@@ -63,7 +63,7 @@ function Analysis() {
   const isLastPage =
     sunday < new Date(`${thisYear}.${thisMonth}.${today}`).getTime();
 
-  const getMonthList = (beforeMonth: number = 0): any => {
+  const getMonthList = (beforeMonth: number = 0): OneDay[] => {
     return data.filter((item: OneDay) => {
       let month = Number(selectedDate.current.month) - beforeMonth;
       let year = Number(selectedDate.current.year);
@@ -77,7 +77,7 @@ function Analysis() {
   };
 
   // 데이터에서 날짜리스트 뽑아오기
-  const getDateList = (pageType: any, data: any) => {
+  const getDateList = (pageType: string, data: OneDay[]) => {
     if (pageType === "Week") {
       const thisList = data.filter((item: OneDay) => {
         const date = new Date(item.date).getTime();

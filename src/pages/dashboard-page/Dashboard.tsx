@@ -54,8 +54,6 @@ function Dashboard() {
     lastSumDetailTimes: getDetailSumTimes(lastWeekList),
   };
 
-  console.log(thisWeekList, lastWeekList);
-
   return (
     <>
       <Header />

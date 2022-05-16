@@ -4,6 +4,8 @@ import Grid from "@mui/material/Grid";
 import { SaveButton, UpdateButton, Container, FormContainer } from "./style";
 import getDay from "../../utils/getDay";
 
+type InputFormProps = {};
+
 function InputForm({
   handlers,
   entireTime,
