@@ -56,35 +56,23 @@ function Chart({
     };
   };
 
-  const monthList =
-    pageType[2] !== "Month"
-      ? []
-      : [
-          {
-            beforeMonth: 5,
-            sumTimes: getMonthSumtimes(fiveMonthAgo),
-          },
-          {
-            beforeMonth: 4,
-            sumTimes: getMonthSumtimes(fourMonthAgo),
-          },
-          {
-            beforeMonth: 3,
-            sumTimes: getMonthSumtimes(threeMonthAgo),
-          },
-          {
-            beforeMonth: 2,
-            sumTimes: getMonthSumtimes(twoMonthAgo),
-          },
-          {
-            beforeMonth: 1,
-            sumTimes: getMonthSumtimes(lastList),
-          },
-          {
-            beforeMonth: 0,
-            sumTimes: getMonthSumtimes(thisList),
-          },
-        ];
+  const monthData = [
+    thisList,
+    lastList,
+    twoMonthAgo,
+    threeMonthAgo,
+    fourMonthAgo,
+    fiveMonthAgo,
+  ]
+    .map((el, idx) => {
+      return {
+        beforeMonth: idx,
+        sumTimes: getMonthSumtimes(el),
+      };
+    })
+    .reverse();
+
+  const monthList = pageType[2] !== "Month" ? [] : monthData;
 
   type SelectedList = {
     list: string | undefined;
@@ -109,7 +97,6 @@ function Chart({
         return Number(improveArr[0]) + Number(+improveArr[1] * 0.016);
       case "PRIVATE_TIME":
         return Number(privateArr[0]) + Number(+privateArr[1] * 0.016);
-
       case "SLEEP_TIME":
         return Number(sleepArr[0]) + Number(+sleepArr[1] * 0.016);
       case "WORK_TIME":
