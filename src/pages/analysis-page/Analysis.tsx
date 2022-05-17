@@ -33,9 +33,15 @@ function Analysis() {
   useEffect(() => {
     getData(setData);
   }, []);
+  interface StateType {
+    state: {
+      type: string[];
+    };
+  }
 
   const [data, setData] = useState([]);
-  const { state }: any = useLocation();
+  const { state } = useLocation() as StateType;
+  console.log(state);
   const pageType = useRef(state.type);
 
   const thisMonth = new Date().getMonth() + 1;
@@ -121,7 +127,7 @@ function Analysis() {
   );
 
   // 날짜 정렬 sort
-  thisList.sort((a: any, b: any) => {
+  thisList.sort((a: OneDay, b: OneDay) => {
     const aDay = new Date(a.date).getTime();
     const bDay = new Date(b.date).getTime();
 
@@ -131,10 +137,10 @@ function Analysis() {
   // 이번주, 저번주 전체 시간 가져오기
   const entireTimes = getEntireTimes(thisList);
   const lastEntireTimes = getEntireTimes(lastList);
-
+  console.log(thisList);
   // 주간
-  const sumTimes = getMainSumTimes(entireTimes);
-  const lastSumTimes = getMainSumTimes(lastEntireTimes);
+  const sumTimes = getMainSumTimes(entireTimes!);
+  const lastSumTimes = getMainSumTimes(lastEntireTimes!);
   const sumDetailTimes = getDetailSumTimes(thisList);
   const lastSumDetailTimes = getDetailSumTimes(lastList);
 
@@ -154,7 +160,7 @@ function Analysis() {
 
   const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-  const selectHandler = (e: any) => {
+  const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     switch (e.target.name) {
       case "year":
         return (selectedDate.current.year = e.target.value);
@@ -170,10 +176,12 @@ function Analysis() {
     );
   };
 
-  const buttonWeekHandler = (e: any) => {
-    if (e.target.dataset.type === "before") {
+  const buttonWeekHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLElement;
+
+    if (target.dataset.type === "before") {
       setWeekRange(weekRange - 1);
-    } else if (e.target.dataset.type === "after") {
+    } else if (target.dataset.type === "after") {
       setWeekRange(weekRange + 1);
     }
   };

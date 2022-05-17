@@ -1,18 +1,23 @@
 import sumHoursMinutes from "./sumTime";
-import { EachTime } from "../type";
+import { EachTime, OneDay } from "../type";
 
 export const getSumTime = (
   entire: EachTime[],
   time: string,
   detailTime: any = ""
 ): number => {
-  if (detailTime !== "") {
-    return entire.reduce((acc: number, obj: EachTime) => {
-      return acc + sumHoursMinutes(obj[time][detailTime]);
-    }, 0);
+  console.log(entire);
+  if (entire) {
+    if (detailTime !== "") {
+      return entire.reduce((acc: number, obj: EachTime) => {
+        return acc + sumHoursMinutes(obj[time][detailTime]);
+      }, 0);
+    } else {
+      return entire.reduce((acc: number, obj: EachTime) => {
+        return acc + sumHoursMinutes(obj[time]);
+      }, 0);
+    }
   } else {
-    return entire.reduce((acc: number, obj: EachTime) => {
-      return acc + sumHoursMinutes(obj[time]);
-    }, 0);
+    return 0;
   }
 };

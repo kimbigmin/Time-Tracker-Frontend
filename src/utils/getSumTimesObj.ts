@@ -1,5 +1,5 @@
 import { getSumTime } from "./getSumTime";
-import { EachTime, sumTime } from "../type";
+import { EachTime, OneDay, sumTime } from "../type";
 
 export const getMainSumTimes = (timeLists: EachTime[]): sumTime => {
   return {

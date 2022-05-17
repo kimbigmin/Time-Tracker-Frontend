@@ -48,8 +48,8 @@ function Dashboard() {
 
   // 주간
   const weekStatusData = {
-    sumTimes: getMainSumTimes(entireTimes),
-    lastSumTimes: getMainSumTimes(lastEntireTimes),
+    sumTimes: getMainSumTimes(entireTimes!),
+    lastSumTimes: getMainSumTimes(lastEntireTimes!),
     sumDetailTimes: getDetailSumTimes(thisWeekList),
     lastSumDetailTimes: getDetailSumTimes(lastWeekList),
   };

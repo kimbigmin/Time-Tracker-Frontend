@@ -23,7 +23,7 @@ function DoughnutChart({ data }: DoughnutChartProps) {
   });
 
   const entireTimes = getEntireTimes(thisMonthList);
-  const sumTimes = getMainSumTimes(entireTimes);
+  const sumTimes = getMainSumTimes(entireTimes!);
 
   const improveData = Number(minutesToHours(sumTimes.sumImprove).split(":")[0]);
   const privateData = Number(minutesToHours(sumTimes.sumPrivate).split(":")[0]);

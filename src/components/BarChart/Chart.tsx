@@ -28,13 +28,24 @@ ChartJS.register(
 type ChartProps = {
   thisList: OneDay[];
   lastList: OneDay[];
-  pageType: string;
+  pageType: string[];
   restList: any;
 
   selectedDate: React.MutableRefObject<{
     year: string;
     month: string;
   }>;
+};
+
+type MonthDateType = {
+  beforeMonth: number;
+  sumTimes: {
+    [key: string]: number;
+  };
+};
+type SelectedListType = {
+  list: string | undefined;
+  title: string | null;
 };
 
 function Chart({
@@ -50,13 +61,14 @@ function Chart({
   const { twoMonthAgo, threeMonthAgo, fourMonthAgo, fiveMonthAgo } = restList;
 
   const getMonthSumtimes = (monthList: OneDay[]) => {
+    console.log(monthList);
     return {
-      ...getMainSumTimes(getEntireTimes(monthList)),
-      ...getDetailSumTimes(monthList),
+      ...getMainSumTimes(getEntireTimes(monthList!)!),
+      ...getDetailSumTimes(monthList!),
     };
   };
 
-  const monthData = [
+  const monthData: MonthDateType[] = [
     thisList,
     lastList,
     twoMonthAgo,
@@ -74,12 +86,7 @@ function Chart({
 
   const monthList = pageType[2] !== "Month" ? [] : monthData;
 
-  type SelectedList = {
-    list: string | undefined;
-    title: string | null;
-  };
-
-  const [selectedList, setSelectedList] = useState<SelectedList>({
+  const [selectedList, setSelectedList] = useState<SelectedListType>({
     list: "IMPROVE_TIME",
     title: "자기계발",
   });
@@ -108,32 +115,26 @@ function Chart({
     }
   };
 
-  const getMonthChartData = (monthData: any) => {
+  const getMonthChartData = (monthData: MonthDateType) => {
+    const { sumImprove, sumPrivate, sumSleep, sumWorks, sumStudy, sumReading } =
+      monthData.sumTimes;
+
+    const getMonthChartHour = (time: number): number => {
+      return Number(convertMinToTime(time).split("시간")[0]);
+    };
     switch (selectedList.list) {
       case "IMPROVE_TIME":
-        return Number(
-          convertMinToTime(monthData.sumTimes.sumImprove).split("시간")[0]
-        );
+        return getMonthChartHour(sumImprove);
       case "PRIVATE_TIME":
-        return Number(
-          convertMinToTime(monthData.sumTimes.sumPrivate).split("시간")[0]
-        );
+        return getMonthChartHour(sumPrivate);
       case "SLEEP_TIME":
-        return Number(
-          convertMinToTime(monthData.sumTimes.sumSleep).split("시간")[0]
-        );
+        return getMonthChartHour(sumSleep);
       case "WORK_TIME":
-        return Number(
-          convertMinToTime(monthData.sumTimes.sumWorks).split("시간")[0]
-        );
+        return getMonthChartHour(sumWorks);
       case "STUDY_TIME":
-        return Number(
-          convertMinToTime(monthData.sumTimes.sumStudy).split("시간")[0]
-        );
+        return getMonthChartHour(sumStudy);
       case "READING_TIME":
-        return Number(
-          convertMinToTime(monthData.sumTimes.sumReading).split("시간")[0]
-        );
+        return getMonthChartHour(sumReading);
     }
   };
 
