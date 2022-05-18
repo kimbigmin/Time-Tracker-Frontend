@@ -1,4 +1,3 @@
-import * as react from "react";
 import { Container, Box } from "./style";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -75,7 +74,7 @@ function DoughnutChart({ data }: DoughnutChartProps) {
         font: {
           size: 13,
         },
-        formatter: (value: any, context: any) => {
+        formatter: (value: number, context: any) => {
           const sum = context.dataset.data.reduce(
             (acc: number, val: number) => {
               return acc + val;

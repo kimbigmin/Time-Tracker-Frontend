@@ -1,3 +1,6 @@
+// import { Dispatch, SetStateAction } from "react";
+// import { OneDay } from "../type";
+
 export async function getData(setFn: any) {
   const response = await fetch("http://localhost:3000/time", {
     method: "GET",

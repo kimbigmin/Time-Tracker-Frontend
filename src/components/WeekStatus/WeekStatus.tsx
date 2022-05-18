@@ -1,10 +1,10 @@
 import * as React from "react";
 import { WeekStatusBox } from "./style";
-import { sumTime } from "../../type";
+import { SumTime } from "../../type";
 import CategoryGauge from "./CategoryGauge";
 
 type WeekSumData = {
-  [key: string]: sumTime;
+  [key: string]: SumTime;
 };
 
 type WeekStatusProps = {

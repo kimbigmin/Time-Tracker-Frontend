@@ -1,8 +1,9 @@
 import { getAverageTime } from "./getAverageTime";
+import { SumTime } from "../type";
 
 export const getSleepingAverage = (
-  thisDetailSumTime: any,
-  lastDetailSumTime: any,
+  thisDetailSumTime: SumTime,
+  lastDetailSumTime: SumTime,
   isThisWeek: boolean
 ) => {
   return {

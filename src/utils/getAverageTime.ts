@@ -1,4 +1,4 @@
-export const getAverageTime = (wakeupTime: any, isThisWeek: boolean) => {
+export const getAverageTime = (wakeupTime: number, isThisWeek: boolean) => {
   const today = new Date().getDay();
   const isSunday = today === 0;
   const day = !isThisWeek ? 7 : isSunday ? 6 : today - 1;

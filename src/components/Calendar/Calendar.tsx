@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useEffect } from "react";
 import { Container } from "./style";
 import { OneDay } from "../../type";
@@ -38,7 +37,7 @@ function Calender({
             return item.date.split(".")[2];
           }
         })
-        .filter((el: any) => el !== undefined);
+        .filter((el: number) => el !== undefined);
 
       setFinishedDays(done);
     }

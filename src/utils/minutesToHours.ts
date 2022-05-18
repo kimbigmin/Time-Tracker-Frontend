@@ -1,4 +1,4 @@
-export function minutesToHours(minutes: any) {
+export function minutesToHours(minutes: number) {
   const hour = Math.floor(minutes / 60);
   const minute = minutes % 60;
 

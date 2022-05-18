@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ContributionBox, Container } from "./style";
 import { OneDay } from "../../type";
 

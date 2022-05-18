@@ -1,8 +1,9 @@
 import { getPercentage } from "./getPercentage";
+import { SumTime } from "../type";
 
 export const getMainTimesPercent = (
-  thisMainSumtimes: any,
-  lastMainSumTimes: any
+  thisMainSumtimes: SumTime,
+  lastMainSumTimes: SumTime
 ) => {
   return {
     improvePercent: getPercentage(

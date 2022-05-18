@@ -1,9 +1,9 @@
-const getDay = (date = "") => {
+const getDay = (date: string = "") => {
   const day = date === "" ? new Date().getDay() : new Date(date).getDay();
   return switchDay(day);
 };
 
-const switchDay = (day: any) => {
+const switchDay = (day: number) => {
   switch (day) {
     case 0:
       return " (일)";

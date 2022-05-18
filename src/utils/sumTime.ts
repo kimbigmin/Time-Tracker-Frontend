@@ -1,6 +1,6 @@
-function sumHoursMinutes(value: any) {
+function sumHoursMinutes(value: string) {
   if (value) {
-    const time = value.split(":").map((item: any, i: number) => {
+    const time = value.split(":").map((item: string, i: number) => {
       if (i === 0) return parseInt(item) * 60;
       return parseInt(item);
     });

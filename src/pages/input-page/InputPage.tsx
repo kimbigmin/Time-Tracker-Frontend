@@ -11,7 +11,7 @@ import { minutesToHours } from "../../utils/minutesToHours";
 import { OneDay } from "../../type";
 
 function InputPage() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<OneDay[] | null>(null);
   const [calender, setCalender] = useState((): string => {
     const thisYear = new Date().getFullYear();
     const thisMonth = new Date().getMonth() + 1;
@@ -121,10 +121,10 @@ function InputPage() {
     },
   };
 
-  const getId = (data: any) => {
+  const getId = (data: OneDay[] | null) => {
     if (data) {
       return data
-        .map((item: any) => {
+        .map((item: OneDay) => {
           if (item.date === `${calender}.${selectedDate}`) {
             return item.shortId;
           }
@@ -134,10 +134,9 @@ function InputPage() {
     }
   };
 
-  const getFormInfo = async (data: any) => {
+  const getFormInfo = async (data: OneDay[]) => {
     if (data) {
       const id = await getId(data);
-      console.log(id);
       if (id) {
         const response = await fetch(`http://localhost:3000/time/${id}`);
         const result = await response.json();

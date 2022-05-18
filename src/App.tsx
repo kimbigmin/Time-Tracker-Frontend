@@ -6,7 +6,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import InputPage from "./pages/input-page/InputPage";
 import AnalysisWeek from "./pages/analysis-page/Analysis";
 import LoginPage from "./pages/login-page/LoginPage";
-import axios from "axios";
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);

@@ -28,7 +28,7 @@ export type EachTime = {
   [key: string]: string;
 };
 
-export type sumTime = {
+export type SumTime = {
   [key: string]: number;
 };
 

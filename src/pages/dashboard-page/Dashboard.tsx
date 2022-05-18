@@ -22,7 +22,7 @@ import { getEntireTimes } from "../../utils/getEntireTimes";
 import DoughnutChart from "../../components/DoughnutChart/DoughnutChart";
 
 function Dashboard() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<OneDay[] | []>([]);
 
   useEffect(() => {
     getData(setData);
