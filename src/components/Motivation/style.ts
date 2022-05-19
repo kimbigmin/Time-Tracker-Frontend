@@ -12,7 +12,7 @@ export const MotivationBox = styled.div`
   }
 
   .content-box {
-    background-color: rgba(1, 1, 1, 0.1);
+    background-color: rgba(255, 255, 255, 1);
     padding: 3rem;
     height: 13.7rem;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,

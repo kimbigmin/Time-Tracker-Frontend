@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useState } from "react";
 import useInterval from "../../hooks/useInterval";
 import msToTime from "../../utils/msToTime";

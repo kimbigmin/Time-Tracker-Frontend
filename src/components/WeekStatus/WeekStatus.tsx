@@ -1,4 +1,3 @@
-import * as React from "react";
 import { WeekStatusBox } from "./style";
 import { SumTime } from "../../type";
 import CategoryGauge from "./CategoryGauge";

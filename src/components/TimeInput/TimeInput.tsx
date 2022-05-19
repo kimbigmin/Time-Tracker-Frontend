@@ -1,4 +1,3 @@
-import * as React from "react";
 import getDay from "../../utils/getDay";
 import TimeGauge from "./TimeGauge";
 import { Record } from "./Record";

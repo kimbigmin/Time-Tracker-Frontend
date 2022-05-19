@@ -1,4 +1,3 @@
-import * as react from "react";
 import { Container } from "./style";
 import logo from "../../assets/images/Time_Tracker_logo.png";
 

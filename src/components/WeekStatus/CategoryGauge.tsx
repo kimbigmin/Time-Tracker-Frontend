@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Gauge } from "./style";
 import { convertMinToTime } from "../../utils/convertMinToTime";
 
