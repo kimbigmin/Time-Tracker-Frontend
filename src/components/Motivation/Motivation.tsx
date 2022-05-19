@@ -1,4 +1,3 @@
-import * as react from "react";
 import { MotivationBox } from "./style";
 import { randomContents } from "../../utils/randomContents";
 
