@@ -15,11 +15,11 @@ function InputPage() {
   const [calender, setCalender] = useState((): string => {
     const thisYear = new Date().getFullYear();
     const thisMonth = new Date().getMonth() + 1;
-
     return `${thisYear}.${thisMonth}`;
-  });
-  const [selectedDate, setSelectedDate] = useState(new Date().getDate());
-  const [finishedDay, setFinishedDays] = useState([]);
+  }); // 공통
+
+  const [selectedDate, setSelectedDate] = useState(new Date().getDate()); // 공통
+  const [finishedDay, setFinishedDays] = useState([]); // 공통
 
   const [improveTime, setImproveTime] = useState(() => {
     const newState = {
@@ -134,49 +134,49 @@ function InputPage() {
     }
   };
 
-  const getFormInfo = async (data: OneDay[]) => {
-    if (data) {
-      const id = await getId(data);
-      if (id) {
-        const response = await fetch(`http://localhost:3000/time/${id}`);
-        const result = await response.json();
-        setImproveTime((current) => {
-          const newState = { ...current, ...result.improve };
-          return newState;
-        });
-        setPrivateTime((current) => {
-          const newState = { ...current, ...result.private };
-          return newState;
-        });
-        setSleepTime((current) => {
-          const newState = { ...current, ...result.sleeping };
-          return newState;
-        });
-        setWorksTime((current) => {
-          const newState = { ...current, ...result.working };
-          return newState;
-        });
-      } else {
-        setImproveTime({
-          study: "",
-          workout: "",
-          reading: "",
-          rest: "",
-        });
-        setPrivateTime({
-          privates: "",
-          game: "",
-        });
-        setSleepTime({
-          night: "",
-          nap: "",
-          wake: "",
-          sleep: "",
-        });
-        setWorksTime({ works: "", houseWork: "" });
-      }
-    }
-  };
+  // const getFormInfo = async (data: OneDay[]) => {
+  //   if (data) {
+  //     const id = await getId(data);
+  //     if (id) {
+  //       const response = await fetch(`http://localhost:3000/time/${id}`);
+  //       const result = await response.json();
+  //       setImproveTime((current) => {
+  //         const newState = { ...current, ...result.improve };
+  //         return newState;
+  //       });
+  //       setPrivateTime((current) => {
+  //         const newState = { ...current, ...result.private };
+  //         return newState;
+  //       });
+  //       setSleepTime((current) => {
+  //         const newState = { ...current, ...result.sleeping };
+  //         return newState;
+  //       });
+  //       setWorksTime((current) => {
+  //         const newState = { ...current, ...result.working };
+  //         return newState;
+  //       });
+  //     } else {
+  //       setImproveTime({
+  //         study: "",
+  //         workout: "",
+  //         reading: "",
+  //         rest: "",
+  //       });
+  //       setPrivateTime({
+  //         privates: "",
+  //         game: "",
+  //       });
+  //       setSleepTime({
+  //         night: "",
+  //         nap: "",
+  //         wake: "",
+  //         sleep: "",
+  //       });
+  //       setWorksTime({ works: "", houseWork: "" });
+  //     }
+  //   }
+  // };
 
   // 폼 제출 핸들러
   const submitHandler = async () => {
@@ -286,8 +286,6 @@ function InputPage() {
           handlers={inputHandlers}
           entireTime={entireTime}
           submitHandler={submitHandler}
-          selectedDate={selectedDate}
-          calender={calender}
           updateHandler={updateHandler}
           finishedDay={finishedDay}
           improveTime={improveTime}
@@ -296,14 +294,12 @@ function InputPage() {
           worksTime={worksTime}
         />
         <Calender
-          calender={calender}
           setCalender={setCalender}
           setSelectedDate={setSelectedDate}
-          selectedDate={selectedDate}
           data={data}
           finishedDay={finishedDay}
           setFinishedDays={setFinishedDays}
-          getFormInfo={getFormInfo}
+          // getFormInfo={getFormInfo}
         />
       </Container>
       <Footer />

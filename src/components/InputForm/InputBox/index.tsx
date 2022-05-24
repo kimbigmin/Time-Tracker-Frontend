@@ -9,8 +9,11 @@ interface InputBoxProps {
   time: any;
 }
 
-function InputBox({ data, handler, time }: InputBoxProps) {
+function InputBox({ data, time }: InputBoxProps) {
   // 핸들러는 여기서 하나로 관리
+
+  const handler = () => {};
+
   const textLists = data.map((el: any) => {
     <TextInput label={el[0]} name={el[1]} handler={handler} timeValue={time} />;
   });

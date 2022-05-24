@@ -1,17 +1,14 @@
 import { useEffect } from "react";
 import { Container } from "./style";
 import { OneDay } from "../../type";
+import { useAppSelector, useAppDispatch } from "../../state/hooks";
+import {
+  moveNextMonth,
+  movePrevMonth,
+  setDate,
+} from "../../state/reducers/calendar";
 
-function Calender({
-  calender,
-  setCalender,
-  setSelectedDate,
-  data,
-  selectedDate,
-  finishedDay,
-  setFinishedDays,
-  getFormInfo,
-}: any) {
+function Calender({ data, finishedDay, setFinishedDays, getFormInfo }: any) {
   const DAYS = ["Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"];
   const dayLists = DAYS.map((item, i) => {
     return (
@@ -20,6 +17,12 @@ function Calender({
       </li>
     );
   });
+
+  const { yearAndMonth, selectedDate } = useAppSelector(
+    (state) => state.calendar
+  );
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     async function getInputDoneDates() {
@@ -33,7 +36,7 @@ function Calender({
       const result = await response.json();
       const done = result
         .map((item: OneDay) => {
-          if (item.date.includes(calender)) {
+          if (item.date.includes(yearAndMonth)) {
             return item.date.split(".")[2];
           }
         })
@@ -42,7 +45,7 @@ function Calender({
       setFinishedDays(done);
     }
     getInputDoneDates();
-  }, [data, calender]);
+  }, [data, yearAndMonth]);
 
   const dateClickColorHandler = (date: number) => {
     if (selectedDate === date) return "selected";
@@ -57,7 +60,7 @@ function Calender({
   let dateLists = Array(37)
     .fill("")
     .map((_, idx) => {
-      const DATE = new Date(calender);
+      const DATE = new Date(yearAndMonth);
       const startDay: number = DATE.getDay() !== 0 ? DATE.getDay() : 7;
       const startMonth: number = DATE.getMonth() + 1;
       const thirtyDaysMonth: number[] = [4, 6, 9, 11];
@@ -84,7 +87,7 @@ function Calender({
           key={date}
           className={dateClickColorHandler(date)}
           onClick={() => {
-            setSelectedDate(date);
+            dispatch(setDate(date));
             getFormInfo(data);
             // 바인딩 함수 추가
           }}
@@ -94,47 +97,14 @@ function Calender({
       );
     });
 
-  // 캘린더 이전 이동버튼 핸들러
-  const prevHandler = (): void => {
-    setCalender((current: string) => {
-      let [year, month] = current.split(".");
-
-      if (month === "1") {
-        month = "12";
-        year = String(Number(year) - 1);
-        setCalender(`${year}.${month}`);
-        setSelectedDate(1);
-      } else {
-        setCalender(`${year}.${Number(month) - 1}`);
-        setSelectedDate(1);
-      }
-    });
-  };
-  // 캘린더 다음 이동버튼 핸들러
-  const nextHandler = (): void => {
-    setCalender((current: string) => {
-      let [year, month] = current.split(".");
-
-      if (month === "12") {
-        month = "1";
-        year = String(Number(year) + 1);
-        setCalender(`${year}.${Number(month)}`);
-        setSelectedDate(1);
-      } else {
-        setCalender(`${year}.${Number(month) + 1}`);
-        setSelectedDate(1);
-      }
-    });
-  };
-
   return (
     <Container>
       <div className="header">
-        <li className="move-Btn" onClick={prevHandler}>
+        <li className="move-Btn" onClick={() => dispatch(movePrevMonth())}>
           <i className="fas fa-chevron-left"></i>
         </li>
-        <li className="yearAndMonth">{calender}</li>
-        <li className="move-Btn" onClick={nextHandler}>
+        <li className="yearAndMonth">{yearAndMonth}</li>
+        <li className="move-Btn" onClick={() => dispatch(moveNextMonth())}>
           <i className="fas fa-chevron-right"></i>
         </li>
       </div>

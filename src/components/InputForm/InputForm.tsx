@@ -2,6 +2,7 @@ import Grid from "@mui/material/Grid";
 import { SaveButton, UpdateButton, Container } from "./style";
 import getDay from "../../utils/getDay";
 import InputBox from "./InputBox";
+import { useAppSelector, useAppDispatch } from "../../state/hooks";
 
 type InputFormProps = {};
 
@@ -9,8 +10,6 @@ function InputForm({
   handlers,
   entireTime,
   submitHandler,
-  selectedDate,
-  calender,
   updateHandler,
   finishedDay,
   improveTime,
@@ -21,6 +20,10 @@ function InputForm({
   const { worksHandler, improveHandler, privateHandler, sleepHandler } =
     handlers;
   const { entireImprove, entirePrivate, entireSleep, entireWorks } = entireTime;
+
+  const { yearAndMonth, selectedDate } = useAppSelector(
+    (state) => state.calendar
+  );
 
   console.log(entireTime);
 
@@ -51,8 +54,8 @@ function InputForm({
   return (
     <>
       <Container>
-        <h2>{`선택 날짜: ${calender}.${selectedDate} ${getDay(
-          `${calender}.${selectedDate}`
+        <h2>{`선택 날짜: ${yearAndMonth}.${selectedDate} ${getDay(
+          `${yearAndMonth}.${selectedDate}`
         )}`}</h2>
         <Grid container rowSpacing={0} columnSpacing={0}>
           <InputBox
