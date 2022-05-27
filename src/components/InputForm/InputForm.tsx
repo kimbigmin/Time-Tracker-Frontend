@@ -8,32 +8,11 @@ import { minutesToHours } from "../../utils/minutesToHours";
 import sumHoursMinutes from "../../utils/sumTime";
 import { setDate } from "../../state/reducers/calendar";
 import { fetchAllTime } from "../../state/reducers/timeData";
+import { fetchPostTimeType } from "../../type";
+import { defaultState } from "../../state/reducers/timeData";
 
 type InputFormProps = {
   finishedDay: string[];
-};
-
-export const defaultState = {
-  improve: {
-    reading: "",
-    rest: "",
-    study: "",
-    workout: "",
-  },
-  private: {
-    game: "",
-    privates: "",
-  },
-  sleeping: {
-    nap: "",
-    night: "",
-    sleep: "",
-    wake: "",
-  },
-  working: {
-    houseWork: "",
-    works: "",
-  },
 };
 
 function InputForm({ finishedDay }: InputFormProps) {
@@ -46,6 +25,8 @@ function InputForm({ finishedDay }: InputFormProps) {
   const dispatch = useAppDispatch();
 
   const [allInput, setAllInput] = useState(defaultState);
+
+  console.log(allInput);
 
   const entireTime = {
     entireImprove: minutesToHours(
@@ -73,6 +54,16 @@ function InputForm({ finishedDay }: InputFormProps) {
     ),
   };
 
+  const entireArray = Object.values(entireTime).map((time) =>
+    sumHoursMinutes(time)
+  );
+  const entireSum = entireArray.reduce((acc, val) => acc + val, 0);
+
+  const checkInputFinish =
+    entireArray.includes(NaN) || entireSum < 21 * 60 || entireSum > 28 * 60
+      ? true
+      : false;
+
   //폼 제출 핸들러
   const submitHandler = async () => {
     // post할 데이터
@@ -80,22 +71,11 @@ function InputForm({ finishedDay }: InputFormProps) {
       ...allInput,
       entireTime,
     };
-
-    const sumEntire = Object.values(entireTime).reduce((acc, val) => {
-      return acc + Number(val.split(":")[0]);
-    }, 0);
+    const sumEntire = getSumEntire(entireTime);
 
     if (sumEntire >= 10 && sumEntire <= 30) {
       // fetch POST
-      await fetch("http://localhost:3000/time", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(timeData),
-      });
-
+      await fetchPostTime({ timeData });
       dispatch(fetchAllTime());
       dispatch(setDate(selectedDate + 1));
       alert("시간이 저장되었습니다.");
@@ -111,21 +91,11 @@ function InputForm({ finishedDay }: InputFormProps) {
       ...allInput,
       entireTime,
     };
-
-    const sumEntire = Object.values(entireTime).reduce((acc, val) => {
-      return acc + Number(val.split(":")[0]);
-    }, 0);
+    const sumEntire = getSumEntire(entireTime);
 
     if (sumEntire >= 10 && sumEntire <= 30) {
       // fetch POST
-      await fetch(`http://localhost:3000/time/${id}`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(timeData),
-      });
+      await fetchPostTime({ timeData, id });
       dispatch(fetchAllTime());
       alert("시간 수정이 완료되었습니다.");
     } else {
@@ -190,13 +160,47 @@ function InputForm({ finishedDay }: InputFormProps) {
           ></InputBox>
         </Grid>
         {finishedDay.includes(`${selectedDate}`) ? (
-          <UpdateButton>수정하기</UpdateButton>
+          <UpdateButton
+            onClick={updateHandler}
+            disabled={checkInputFinish}
+            style={{
+              backgroundColor: checkInputFinish ? "lightgray" : "#36424f",
+            }}
+          >
+            수정하기
+          </UpdateButton>
         ) : (
-          <SaveButton onClick={submitHandler}>저장하기</SaveButton>
+          <SaveButton
+            onClick={submitHandler}
+            disabled={checkInputFinish}
+            style={{
+              backgroundColor: checkInputFinish ? "lightgray" : "#1671cc",
+            }}
+          >
+            저장하기
+          </SaveButton>
         )}
       </Container>
     </>
   );
 }
+
+const getSumEntire = (entire: { [key: string]: string }): number => {
+  return Object.values(entire).reduce(
+    (acc, val) => acc + Number(val.split(":")[0]),
+    0
+  );
+};
+
+const fetchPostTime = async ({ id, timeData }: fetchPostTimeType) => {
+  await fetch(`http://localhost:3000/time/${id ? id : ""}`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(timeData),
+  });
+};
 
 export default InputForm;

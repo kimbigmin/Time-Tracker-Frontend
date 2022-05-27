@@ -11,12 +11,26 @@ function Label({ time, type }: LabelProps) {
   const entireTime = minutesToHours(
     Object.values(time).reduce((acc, val) => acc + sumHoursMinutes(val), 0)
   );
+  const checkInput = Object.values(time)
+    .map((el) => el.match(/^\d{1,2}:\d{2}$/g))
+    .includes(null);
+
+  console.log(checkInput);
   const title = getTitle(type);
 
   return (
     <h3>
       {title}:{" "}
-      {entireTime !== "NaN:NaN" ? entireTime : "올바른 형식을 입력해주세요."}
+      <span
+        style={{
+          color: entireTime !== "NaN:NaN" && !checkInput ? "black" : "red",
+          fontSize: "1.1rem",
+        }}
+      >
+        {entireTime !== "NaN:NaN" && !checkInput
+          ? entireTime
+          : "올바른 형식을 입력해주세요."}
+      </span>
     </h3>
   );
 }

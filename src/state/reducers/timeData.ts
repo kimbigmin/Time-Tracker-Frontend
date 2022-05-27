@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OneDay } from "../../type";
-import axios from "axios";
-import { defaultState } from "../../components/InputForm/InputForm";
 
 interface TimeDataState {
   loading: boolean;
@@ -70,6 +68,29 @@ export const fetchOneDay = (id?: string) => async (dispatch: any) => {
   } else {
     dispatch(oneDayReceived(defaultState));
   }
+};
+
+export const defaultState = {
+  improve: {
+    reading: "",
+    rest: "",
+    study: "",
+    workout: "",
+  },
+  private: {
+    game: "",
+    privates: "",
+  },
+  sleeping: {
+    nap: "",
+    night: "",
+    sleep: "",
+    wake: "",
+  },
+  working: {
+    houseWork: "",
+    works: "",
+  },
 };
 
 export default timeDataSlice.reducer;

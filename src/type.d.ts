@@ -37,4 +37,25 @@ export type DateAction = {
   date: OneDay;
 };
 
+export type fetchPostTimeType = {
+  id?: string;
+  timeData: {
+    entireTime: {
+      [key: string]: string;
+    };
+    improve: {
+      [key: string]: string;
+    };
+    private: {
+      [key: string]: string;
+    };
+    sleeping: {
+      [key: string]: string;
+    };
+    working: {
+      [key: string]: string;
+    };
+  };
+};
+
 export type DispatchType = (args: DateAction) => DateAction;
