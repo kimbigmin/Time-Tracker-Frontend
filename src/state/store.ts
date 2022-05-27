@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import calendarReducer from "./reducers/calendar";
+import timeDataReducer from "./reducers/timeData";
 
 export const store = configureStore({
   reducer: {
     calendar: calendarReducer,
+    timeData: timeDataReducer,
   },
 });
 

@@ -5,9 +5,12 @@ interface TextInputProps {
   name: string;
   handler: any;
   timeValue: any;
+  type: string;
 }
 
-function TextInput({ label, name, handler, timeValue }: TextInputProps) {
+function TextInput({ label, name, handler, timeValue, type }: TextInputProps) {
+  const color = getColor(type);
+
   return (
     <>
       <TextField
@@ -18,15 +21,27 @@ function TextInput({ label, name, handler, timeValue }: TextInputProps) {
         placeholder="8:10"
         required
         size="small"
-        color="warning"
+        color={color}
         name={name}
         onChange={handler}
         autoFocus
-        // value={improveTime ? improveTime.study : "0:00"}
         value={timeValue}
       />
     </>
   );
 }
+
+const getColor = (type: string) => {
+  switch (type) {
+    case "improve":
+      return "warning";
+    case "private":
+      return "error";
+    case "working":
+      return "info";
+    case "sleeping":
+      return "secondary";
+  }
+};
 
 export default TextInput;

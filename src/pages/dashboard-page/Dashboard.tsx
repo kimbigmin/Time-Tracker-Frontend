@@ -13,20 +13,24 @@ import Motivation from "../../components/Motivation/Motivation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import WeekStatus from "../../components/WeekStatus/WeekStatus";
-import { getData } from "../../utils/getData";
+
 import { getLastMondays } from "../../utils/getLastMondays";
 import { getLastSunday } from "../../utils/getLastSunday";
 import { OneDay } from "../../type";
 import { getMainSumTimes, getDetailSumTimes } from "../../utils/getSumTimesObj";
 import { getEntireTimes } from "../../utils/getEntireTimes";
 import DoughnutChart from "../../components/DoughnutChart/DoughnutChart";
+import { useAppSelector, useAppDispatch } from "../../state/hooks";
+import { fetchAllTime } from "../../state/reducers/timeData";
 
 function Dashboard() {
-  const [data, setData] = useState<OneDay[] | []>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getData(setData);
+    dispatch(fetchAllTime());
   }, []);
+
+  const data = useAppSelector((state) => state.timeData.data);
 
   const standardTime = new Date().toDateString();
   const monday = getLastMondays(standardTime, 0);
@@ -50,8 +54,8 @@ function Dashboard() {
   const weekStatusData = {
     sumTimes: getMainSumTimes(entireTimes!),
     lastSumTimes: getMainSumTimes(lastEntireTimes!),
-    sumDetailTimes: getDetailSumTimes(thisWeekList),
-    lastSumDetailTimes: getDetailSumTimes(lastWeekList),
+    sumDetailTimes: getDetailSumTimes(thisWeekList!),
+    lastSumDetailTimes: getDetailSumTimes(lastWeekList!),
   };
 
   return (

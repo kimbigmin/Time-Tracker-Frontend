@@ -7,41 +7,63 @@ import {
   movePrevMonth,
   setDate,
 } from "../../state/reducers/calendar";
+import { fetchOneDay } from "../../state/reducers/timeData";
 
-function Calender({ data, finishedDay, setFinishedDays, getFormInfo }: any) {
-  const DAYS = ["Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"];
-  const dayLists = DAYS.map((item, i) => {
-    return (
-      <li className="day" key={i}>
-        {item}
-      </li>
-    );
-  });
+interface CalendarProps {
+  finishedDay: string[];
+  setFinishedDays: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
+function Calendar({ finishedDay, setFinishedDays }: CalendarProps) {
+  const data = useAppSelector((state) => state.timeData.data);
   const { yearAndMonth, selectedDate } = useAppSelector(
     (state) => state.calendar
   );
-
   const dispatch = useAppDispatch();
+
+  const DAYS = ["Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"];
+
+  const dayLists = DAYS.map((item, i) => (
+    <li className="day" key={i}>
+      {item}
+    </li>
+  ));
+
+  const getId = (data: OneDay[] | null) => {
+    if (data) {
+      return data
+        .map((item: OneDay) => {
+          if (item.date === `${yearAndMonth}.${selectedDate}`) {
+            return item.shortId;
+          }
+          return "";
+        })
+        .join("");
+    }
+  };
+
+  const getFormInfo = async (data: OneDay[]) => {
+    if (data) {
+      const id = await getId(data);
+      if (id) {
+        dispatch(fetchOneDay(id));
+      } else {
+        dispatch(fetchOneDay());
+      }
+    }
+  };
 
   useEffect(() => {
     async function getInputDoneDates() {
-      const response = await fetch("http://localhost:3000/time", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const result = await response.json();
-      const done = result
+      const done = data
         .map((item: OneDay) => {
           if (item.date.includes(yearAndMonth)) {
             return item.date.split(".")[2];
           }
+          return "";
         })
-        .filter((el: number) => el !== undefined);
-
+        .filter((el) => el !== "");
+      console.log(done);
       setFinishedDays(done);
     }
     getInputDoneDates();
@@ -49,11 +71,8 @@ function Calender({ data, finishedDay, setFinishedDays, getFormInfo }: any) {
 
   const dateClickColorHandler = (date: number) => {
     if (selectedDate === date) return "selected";
-    if (finishedDay.includes(String(date))) {
-      return "doneDate";
-    } else {
-      return "date";
-    }
+    if (finishedDay.includes(String(date))) return "doneDate";
+    return "date";
   };
 
   // 월별에 따른 달력 데이터 불러오기
@@ -89,7 +108,6 @@ function Calender({ data, finishedDay, setFinishedDays, getFormInfo }: any) {
           onClick={() => {
             dispatch(setDate(date));
             getFormInfo(data);
-            // 바인딩 함수 추가
           }}
         >
           {date}
@@ -114,4 +132,4 @@ function Calender({ data, finishedDay, setFinishedDays, getFormInfo }: any) {
   );
 }
 
-export default Calender;
+export default Calendar;
