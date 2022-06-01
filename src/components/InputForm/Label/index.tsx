@@ -8,14 +8,23 @@ interface LabelProps {
 }
 
 function Label({ time, type }: LabelProps) {
-  const entireTime = minutesToHours(
-    Object.values(time).reduce((acc, val) => acc + sumHoursMinutes(val), 0)
-  );
+  const entireTime =
+    type === "sleeping"
+      ? minutesToHours(
+          sumHoursMinutes(Object.values(time)[0]) +
+            sumHoursMinutes(Object.values(time)[1])
+        )
+      : minutesToHours(
+          Object.values(time).reduce(
+            (acc, val) => acc + sumHoursMinutes(val),
+            0
+          )
+        );
+
   const checkInput = Object.values(time)
     .map((el) => el.match(/^\d{1,2}:\d{2}$/g))
     .includes(null);
-
-  console.log(checkInput);
+  console.log(entireTime);
   const title = getTitle(type);
 
   return (

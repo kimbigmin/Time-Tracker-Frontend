@@ -60,10 +60,11 @@ function InputForm({ finishedDay }: InputFormProps) {
   const entireSum = entireArray.reduce((acc, val) => acc + val, 0);
 
   const checkInputFinish =
-    entireArray.includes(NaN) || entireSum < 21 * 60 || entireSum > 28 * 60
+    entireArray.includes(NaN) || entireSum < 17 * 60 || entireSum > 28 * 60
       ? true
       : false;
-
+  const sumEntire = getSumEntire(entireTime);
+  console.log(sumEntire);
   //폼 제출 핸들러
   const submitHandler = async () => {
     // post할 데이터
