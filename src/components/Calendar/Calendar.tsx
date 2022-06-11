@@ -64,7 +64,6 @@ function Calendar({ finishedDay, setFinishedDays }: CalendarProps) {
           return "";
         })
         .filter((el) => el !== "");
-      console.log(done);
       setFinishedDays(done);
     }
     getInputDoneDates();

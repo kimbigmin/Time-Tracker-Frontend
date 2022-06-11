@@ -55,7 +55,7 @@ function Chart({
   restList = "undefined",
   selectedDate,
 }: ChartProps) {
-  const year = Number(selectedDate.current.year);
+  // const year = Number(selectedDate.current.year);
   const month = Number(selectedDate.current.month);
 
   const { twoMonthAgo, threeMonthAgo, fourMonthAgo, fiveMonthAgo } = restList;
