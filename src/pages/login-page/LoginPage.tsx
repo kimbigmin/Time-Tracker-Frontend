@@ -7,7 +7,7 @@ function LoginPage() {
     <Container>
       <Box>
         <img src={logo} alt="logo"></img>
-        <Button href={`${process.env.SERVER_URL}/auth/google`}>
+        <Button href="http://ec2-13-125-194-99.ap-northeast-2.compute.amazonaws.com/api/auth/google">
           Google 로그인
         </Button>
       </Box>
