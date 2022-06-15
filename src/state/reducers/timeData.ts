@@ -42,13 +42,16 @@ export const { timesLoading, timesReceived, oneDayReceived } =
 
 export const fetchAllTime = () => async (dispatch: any) => {
   dispatch(timesLoading());
-  const response = await fetch("http://localhost:3000/time", {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    "http://ec2-52-78-39-53.ap-northeast-2.compute.amazonaws.com/time",
+    {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const res = await response.json();
   dispatch(timesReceived(res));
 };
@@ -56,13 +59,16 @@ export const fetchAllTime = () => async (dispatch: any) => {
 export const fetchOneDay = (id?: string) => async (dispatch: any) => {
   dispatch(timesLoading());
   if (id) {
-    const response = await fetch(`http://localhost:3000/time/${id}`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `http://ec2-52-78-39-53.ap-northeast-2.compute.amazonaws.com/time/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const res = await response.json();
     dispatch(oneDayReceived(res));
   } else {
