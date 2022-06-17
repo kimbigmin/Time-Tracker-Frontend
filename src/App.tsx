@@ -8,7 +8,7 @@ import AnalysisWeek from "./pages/analysis-page/Analysis";
 import LoginPage from "./pages/login-page/LoginPage";
 
 function App() {
-  const [isLogIn, setIsLogIn] = useState(false);
+  const [isLogIn, setIsLogIn] = useState(true);
 
   useEffect(() => {
     if (document.cookie) setIsLogIn(true);
