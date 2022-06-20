@@ -9,7 +9,7 @@ import LoginPage from "./pages/login-page/LoginPage";
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
-
+  console.log(isLogIn);
   useEffect(() => {
     if (document.cookie) setIsLogIn(true);
   }, []);

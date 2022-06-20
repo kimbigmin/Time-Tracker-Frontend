@@ -7,7 +7,7 @@ function LoginPage() {
     <Container>
       <Box>
         <img src={logo} alt="logo"></img>
-        <Button href="http://ec2-52-78-39-53.ap-northeast-2.compute.amazonaws.com/auth/google">
+        <Button href="https://a.time-trackers.com/auth/google">
           Google 로그인
         </Button>
       </Box>
