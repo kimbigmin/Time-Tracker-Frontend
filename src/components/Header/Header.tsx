@@ -4,7 +4,7 @@ import { StyledHeader } from "./style";
 function Header() {
   const handlerLogOut = () => {
     if (window.confirm("정말 로그아웃 하시겠습니까?")) {
-      fetch("http://localhost:3000/auth/logout", {
+      fetch("https://a.time-trackers.com/auth/logout", {
         method: "GET",
         credentials: "include",
       }).then((res) => {

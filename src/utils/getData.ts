@@ -2,7 +2,7 @@
 // import { OneDay } from "../type";
 
 export async function getData(setFn: any) {
-  const response = await fetch("http://localhost:3000/time", {
+  const response = await fetch("https://a.time-trackers.com/time", {
     method: "GET",
     credentials: "include",
     headers: {

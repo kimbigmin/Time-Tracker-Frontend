@@ -194,7 +194,7 @@ const getSumEntire = (entire: { [key: string]: string }): number => {
 };
 
 const fetchPostTime = async ({ id, timeData }: fetchPostTimeType) => {
-  await fetch(`http://localhost:3000/time/${id ? id : ""}`, {
+  await fetch(`https://a.time-trackers.com/time/${id ? id : ""}`, {
     method: "POST",
     credentials: "include",
     headers: {
