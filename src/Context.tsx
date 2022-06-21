@@ -7,13 +7,14 @@ export default function Context(props: any) {
   const [userObject, setUserObject] = useState<any>();
 
   useEffect(() => {
-    axios
-      .get("https://a.time-trackers.com/getuser", { withCredentials: true })
-      .then((res: AxiosResponse) => {
-        if (res.data) {
-          setUserObject(res.data);
-        }
-      });
+    fetch("https://a.time-trackers.com/getuser", {
+      credentials: "include",
+    }).then((res: any) => {
+      console.log(res);
+      if (res.data) {
+        setUserObject(res.data);
+      }
+    });
   }, []);
 
   return (
