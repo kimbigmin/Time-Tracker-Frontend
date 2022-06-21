@@ -14,10 +14,7 @@ function App() {
   console.log(userObject);
   return (
     <Routes>
-      <Route
-        path="/"
-        element={userObject ? <Navigate to="/main" /> : <LoginPage />}
-      ></Route>
+      <Route path="/*" element={<Navigate to="/" />}></Route>
       <Route
         path="/main"
         element={userObject ? <Dashboard /> : <Navigate to="/" />}
@@ -38,7 +35,10 @@ function App() {
         path="/main/analysis/year"
         element={userObject ? <AnalysisWeek /> : <Navigate to="/" />}
       ></Route>
-      <Route path="/*" element={<Navigate to="/" />}></Route>
+      <Route
+        path="/"
+        element={userObject ? <Navigate to="/main" /> : <LoginPage />}
+      ></Route>
     </Routes>
   );
 }
