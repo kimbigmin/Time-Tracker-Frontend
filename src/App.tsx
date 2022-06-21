@@ -7,46 +7,36 @@ import InputPage from "./pages/input-page/InputPage";
 import AnalysisWeek from "./pages/analysis-page/Analysis";
 import LoginPage from "./pages/login-page/LoginPage";
 import axios, { AxiosResponse } from "axios";
+import { myContext } from "./Context";
 
 function App() {
-  const [isLogIn, setIsLogIn] = useState();
-  console.log(isLogIn);
-  useEffect(() => {
-    axios
-      .get("https://a.time-trackers.com/getuser", { withCredentials: true })
-      .then((res: AxiosResponse) => {
-        console.log(res);
-        if (res.data) {
-          setIsLogIn(res.data);
-        }
-      });
-  }, []);
-
+  const userObject = React.useContext(myContext);
+  console.log(userObject);
   return (
     <Routes>
       <Route
         path="/"
-        element={isLogIn ? <Navigate to="/main" /> : <LoginPage />}
+        element={userObject ? <Navigate to="/main" /> : <LoginPage />}
       ></Route>
       <Route
         path="/main"
-        element={isLogIn ? <Dashboard /> : <Navigate to="/" />}
+        element={userObject ? <Dashboard /> : <Navigate to="/" />}
       ></Route>
       <Route
         path="/main/input"
-        element={isLogIn ? <InputPage /> : <Navigate to="/" />}
+        element={userObject ? <InputPage /> : <Navigate to="/" />}
       ></Route>
       <Route
         path="/main/analysis/week"
-        element={isLogIn ? <AnalysisWeek /> : <Navigate to="/" />}
+        element={userObject ? <AnalysisWeek /> : <Navigate to="/" />}
       ></Route>
       <Route
         path="/main/analysis/month"
-        element={isLogIn ? <AnalysisWeek /> : <Navigate to="/" />}
+        element={userObject ? <AnalysisWeek /> : <Navigate to="/" />}
       ></Route>
       <Route
         path="/main/analysis/year"
-        element={isLogIn ? <AnalysisWeek /> : <Navigate to="/" />}
+        element={userObject ? <AnalysisWeek /> : <Navigate to="/" />}
       ></Route>
     </Routes>
   );
