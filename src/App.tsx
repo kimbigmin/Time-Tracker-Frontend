@@ -14,7 +14,6 @@ function App() {
   console.log(userObject);
   return (
     <Routes>
-      <Route path="/*" element={<Navigate to="/" />}></Route>
       <Route
         path="/main"
         element={userObject ? <Dashboard /> : <Navigate to="/" />}
