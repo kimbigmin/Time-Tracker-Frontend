@@ -8,11 +8,13 @@ export default function Context(props: any) {
 
   useEffect(() => {
     fetch("https://a.time-trackers.com/getuser", {
+      method: "GET",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-      .then((res: any) => {
-        res.json();
-      })
+      .then((res: any) => res.json())
       .then((data: any) => {
         console.log(data);
         if (data) {
