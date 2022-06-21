@@ -9,12 +9,16 @@ export default function Context(props: any) {
   useEffect(() => {
     fetch("https://a.time-trackers.com/getuser", {
       credentials: "include",
-    }).then((res: any) => {
-      console.log(res);
-      if (res.data) {
-        setUserObject(res.data);
-      }
-    });
+    })
+      .then((res: any) => {
+        res.json();
+      })
+      .then((data: any) => {
+        console.log(data);
+        if (data) {
+          setUserObject(data);
+        }
+      });
   }, []);
 
   return (
