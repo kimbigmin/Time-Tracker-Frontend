@@ -38,6 +38,7 @@ function App() {
         path="/main/analysis/year"
         element={userObject ? <AnalysisWeek /> : <Navigate to="/" />}
       ></Route>
+      <Route path="/*" element={<Navigate to="/" />}></Route>
     </Routes>
   );
 }
