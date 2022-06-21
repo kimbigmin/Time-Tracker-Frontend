@@ -6,12 +6,17 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import InputPage from "./pages/input-page/InputPage";
 import AnalysisWeek from "./pages/analysis-page/Analysis";
 import LoginPage from "./pages/login-page/LoginPage";
+import axios, { AxiosResponse } from "axios";
 
 function App() {
-  const [isLogIn, setIsLogIn] = useState(false);
+  const [isLogIn, setIsLogIn] = useState();
   console.log(isLogIn);
   useEffect(() => {
-    if (document.cookie) setIsLogIn(true);
+    axios
+      .get("https://a.time-trackers.com/getuser", { withCredentials: true })
+      .then((res: AxiosResponse) => {
+        if (res.data) setIsLogIn(res.data);
+      });
   }, []);
 
   return (
