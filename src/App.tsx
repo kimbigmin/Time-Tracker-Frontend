@@ -15,7 +15,10 @@ function App() {
     axios
       .get("https://a.time-trackers.com/getuser", { withCredentials: true })
       .then((res: AxiosResponse) => {
-        if (res.data) setIsLogIn(res.data);
+        console.log(res);
+        if (res.data) {
+          setIsLogIn(res.data);
+        }
       });
   }, []);
 
