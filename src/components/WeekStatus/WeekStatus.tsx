@@ -62,7 +62,7 @@ function WeekStatus({ data }: WeekStatusProps) {
 }
 
 const getPercent = (current: number, last: number): string => {
-  return ((current / last) * 100).toFixed(1);
+  return ((current / (last ? 1 : last)) * 100).toFixed(1);
 };
 
 export default WeekStatus;
