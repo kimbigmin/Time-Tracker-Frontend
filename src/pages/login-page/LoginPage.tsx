@@ -7,7 +7,7 @@ function LoginPage() {
     <Container>
       <Box>
         <img src={logo} alt="logo"></img>
-        <Button href="https://a.time-trackers.com/auth/google">
+        <Button href={`${process.env.REACT_APP_SERVER_URL}/auth/google`}>
           Google 로그인
         </Button>
       </Box>

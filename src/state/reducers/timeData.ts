@@ -42,7 +42,7 @@ export const { timesLoading, timesReceived, oneDayReceived } =
 
 export const fetchAllTime = () => async (dispatch: any) => {
   dispatch(timesLoading());
-  const response = await fetch("https://a.time-trackers.com/time", {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/time`, {
     method: "GET",
     credentials: "include",
     headers: {
@@ -56,13 +56,16 @@ export const fetchAllTime = () => async (dispatch: any) => {
 export const fetchOneDay = (id?: string) => async (dispatch: any) => {
   dispatch(timesLoading());
   if (id) {
-    const response = await fetch(`https://a.time-trackers.com/time/${id}`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/time/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const res = await response.json();
     dispatch(oneDayReceived(res));
   } else {

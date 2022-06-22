@@ -1,17 +1,14 @@
 import "./App.css";
 import * as React from "react";
-import { useState, useEffect } from "react";
 import Dashboard from "./pages/dashboard-page/Dashboard";
 import { Routes, Route, Navigate } from "react-router-dom";
 import InputPage from "./pages/input-page/InputPage";
 import AnalysisWeek from "./pages/analysis-page/Analysis";
 import LoginPage from "./pages/login-page/LoginPage";
-import axios, { AxiosResponse } from "axios";
 import { myContext } from "./Context";
 
 function App() {
   const userObject = React.useContext(myContext);
-  console.log(userObject);
   return (
     <Routes>
       <Route

@@ -2,7 +2,7 @@
 // import { OneDay } from "../type";
 
 export async function getData(setFn: any) {
-  const response = await fetch("https://a.time-trackers.com/time", {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/time`, {
     method: "GET",
     credentials: "include",
     headers: {
