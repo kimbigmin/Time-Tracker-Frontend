@@ -23,10 +23,7 @@ function InputForm({ finishedDay }: InputFormProps) {
   );
 
   const dispatch = useAppDispatch();
-
   const [allInput, setAllInput] = useState(defaultState);
-
-  console.log(allInput);
 
   const entireTime = {
     entireImprove: minutesToHours(
@@ -63,8 +60,7 @@ function InputForm({ finishedDay }: InputFormProps) {
     entireArray.includes(NaN) || entireSum < 17 * 60 || entireSum > 28 * 60
       ? true
       : false;
-  const sumEntire = getSumEntire(entireTime);
-  console.log(sumEntire);
+
   //폼 제출 핸들러
   const submitHandler = async () => {
     // post할 데이터
