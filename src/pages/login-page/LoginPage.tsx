@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Container, Box, Button } from "./style";
 import logo from "../../assets/images/Time_Tracker_logo.png";
 
