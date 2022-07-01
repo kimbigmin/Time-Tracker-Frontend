@@ -15,6 +15,7 @@ import { getMainSumTimes, getDetailSumTimes } from "../../utils/getSumTimesObj";
 import { getEntireTimes } from "../../utils/getEntireTimes";
 import { convertMinToTime } from "../../utils/convertMinToTime";
 import { OneDay } from "../../type";
+import * as moment from "moment";
 
 ChartJS.register(
   CategoryScale,
