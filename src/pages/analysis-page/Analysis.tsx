@@ -82,6 +82,12 @@ function Analysis() {
     });
   };
 
+  const getYearList = (data: OneDay[], ago: number) => {
+    return data.filter((item: OneDay) => {
+      return item.date.includes(`${Number(selectedDate.current.year) - ago}`);
+    });
+  };
+
   // 데이터에서 날짜리스트 뽑아오기
   const getDateList = (pageType: string, data: OneDay[]) => {
     if (pageType === "Week") {
@@ -100,28 +106,30 @@ function Analysis() {
       const thisList = getMonthList(0);
       const lastList = getMonthList(1);
 
-      const restLastMonth = {
+      const restLastList = {
         twoMonthAgo: getMonthList(2),
         threeMonthAgo: getMonthList(3),
         fourMonthAgo: getMonthList(4),
         fiveMonthAgo: getMonthList(5),
       };
 
-      return { thisList, lastList, restLastMonth };
+      return { thisList, lastList, restLastList };
     } else {
-      const thisList = data.filter((item: OneDay) => {
-        return item.date.includes(`${selectedDate.current.year}`);
-      });
+      const thisList = getYearList(data, 0);
 
-      const lastList = data.filter((item: OneDay) => {
-        return item.date.includes(`${Number(selectedDate.current.year) - 1}`);
-      });
+      const lastList = getYearList(data, 1);
 
-      return { thisList, lastList };
+      const restLastYear = {
+        threeYearAgo: getYearList(data, 2),
+        fourYearAgo: getYearList(data, 3),
+        fiveYearAgo: getYearList(data, 4),
+      };
+      console.log(thisList, lastList);
+      return { thisList, lastList, restLastYear };
     }
   };
 
-  const { thisList, lastList, restLastMonth } = getDateList(
+  const { thisList, lastList, restLastList } = getDateList(
     pageType.current[2],
     data
   );
@@ -316,7 +324,7 @@ function Analysis() {
             <Chart
               thisList={thisList}
               lastList={lastList}
-              restList={restLastMonth}
+              restList={restLastList}
               pageType={pageType.current}
               selectedDate={selectedDate}
             ></Chart>

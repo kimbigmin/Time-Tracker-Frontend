@@ -43,6 +43,14 @@ type MonthDateType = {
     [key: string]: number;
   };
 };
+
+type YearDateType = {
+  beforeYear: number;
+  sumTimes: {
+    [key: string]: number;
+  };
+};
+
 type SelectedListType = {
   list: string | undefined;
   title: string | null;
@@ -55,10 +63,11 @@ function Chart({
   restList = "undefined",
   selectedDate,
 }: ChartProps) {
-  // const year = Number(selectedDate.current.year);
   const month = Number(selectedDate.current.month);
 
   const { twoMonthAgo, threeMonthAgo, fourMonthAgo, fiveMonthAgo } = restList;
+
+  const { threeYearAgo, fourYearAgo, fiveYearAgo } = restList;
 
   const getMonthSumtimes = (monthList: OneDay[]) => {
     console.log(monthList);
@@ -67,6 +76,7 @@ function Chart({
       ...getDetailSumTimes(monthList!),
     };
   };
+  console.log(getMonthSumtimes(thisList));
 
   const monthData: MonthDateType[] = [
     thisList,
@@ -84,7 +94,24 @@ function Chart({
     })
     .reverse();
 
+  const yearData: YearDateType[] = [
+    thisList,
+    lastList,
+    threeYearAgo,
+    fourYearAgo,
+    fiveYearAgo,
+  ]
+    .map((el, idx) => {
+      return {
+        beforeYear: idx,
+        sumTimes: getMonthSumtimes(el),
+      };
+    })
+    .reverse();
+
   const monthList = pageType[2] !== "Month" ? [] : monthData;
+
+  const yearList = pageType[2] !== "Year" ? [] : yearData;
 
   const [selectedList, setSelectedList] = useState<SelectedListType>({
     list: "IMPROVE_TIME",
@@ -118,6 +145,29 @@ function Chart({
   const getMonthChartData = (monthData: MonthDateType) => {
     const { sumImprove, sumPrivate, sumSleep, sumWorks, sumStudy, sumReading } =
       monthData.sumTimes;
+
+    const getMonthChartHour = (time: number): number => {
+      return Number(convertMinToTime(time).split("시간")[0]);
+    };
+    switch (selectedList.list) {
+      case "IMPROVE_TIME":
+        return getMonthChartHour(sumImprove);
+      case "PRIVATE_TIME":
+        return getMonthChartHour(sumPrivate);
+      case "SLEEP_TIME":
+        return getMonthChartHour(sumSleep);
+      case "WORK_TIME":
+        return getMonthChartHour(sumWorks);
+      case "STUDY_TIME":
+        return getMonthChartHour(sumStudy);
+      case "READING_TIME":
+        return getMonthChartHour(sumReading);
+    }
+  };
+
+  const getYearChartData = (yearData: YearDateType) => {
+    const { sumImprove, sumPrivate, sumSleep, sumWorks, sumStudy, sumReading } =
+      yearData.sumTimes;
 
     const getMonthChartHour = (time: number): number => {
       return Number(convertMinToTime(time).split("시간")[0]);
@@ -195,6 +245,31 @@ function Chart({
     },
   ];
 
+  const yearDataSets = [
+    {
+      label: `${selectedList.title}`,
+      data: yearList.map((year) => {
+        return getYearChartData(year);
+      }),
+      backgroundColor: () => {
+        switch (selectedList.list) {
+          case "IMPROVE_TIME":
+            return "rgba(251, 184, 1, 0.8)";
+          case "PRIVATE_TIME":
+            return "rgba(241, 66, 43, 0.8)";
+          case "SLEEP_TIME":
+            return "rgba(107, 29, 195, 0.8)";
+          case "WORK_TIME":
+            return " rgba(0, 226, 207, 0.8)";
+          case "STUDY_TIME":
+            return "rgba(228, 130, 2, 0.8)";
+          case "READING_TIME":
+            return "rgba(49, 37, 2, 0.8)";
+        }
+      },
+    },
+  ];
+
   const monthLabels = Array(6)
     .fill("")
     .map((_, idx) => {
@@ -218,19 +293,26 @@ function Chart({
 
   const weekLabels = ["월", "화", "수", "목", "금", "토", "일"];
 
+  const yearLabels = Array(5)
+    .fill(null)
+    .map((_, idx) => {
+      return `${new Date().getFullYear() - idx}년`;
+    })
+    .reverse();
+
   const data = {
     labels:
       pageType[2] === "Week"
         ? weekLabels
         : pageType[2] === "Month"
         ? monthLabels
-        : monthLabels,
+        : yearLabels,
     datasets:
       pageType[2] === "Week"
         ? weekDataSets
         : pageType[2] === "Month"
         ? monthDataSets
-        : monthDataSets,
+        : yearDataSets,
   };
 
   const options = {

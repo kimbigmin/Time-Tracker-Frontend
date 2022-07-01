@@ -21,7 +21,7 @@ jobs:
       - name: Build static file
         run: CI="" npm run build
         env:
-          REACT_APP_SERVER_URL: https://server.time-trackers.com
+          REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
