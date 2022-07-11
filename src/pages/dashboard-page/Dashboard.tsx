@@ -53,11 +53,10 @@ function Dashboard() {
       moment(date).isSameOrBefore(moment(lastSunday))
     );
   });
-  console.log(thisWeekList, lastWeekList);
+
   const entireTimes = getEntireTimes(thisWeekList);
   const lastEntireTimes = getEntireTimes(lastWeekList);
 
-  console.log(entireTimes, lastEntireTimes);
   // 주간
   const weekStatusData = {
     sumTimes: getMainSumTimes(entireTimes!),

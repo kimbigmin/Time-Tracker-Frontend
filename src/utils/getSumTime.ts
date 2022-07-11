@@ -6,7 +6,6 @@ export const getSumTime = (
   time: string,
   detailTime: any = ""
 ): number => {
-  console.log(entire);
   if (entire) {
     if (detailTime !== "") {
       return entire.reduce((acc: number, obj: EachTime) => {

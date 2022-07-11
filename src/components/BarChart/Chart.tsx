@@ -71,13 +71,11 @@ function Chart({
   const { threeYearAgo, fourYearAgo, fiveYearAgo } = restList;
 
   const getMonthSumtimes = (monthList: OneDay[]) => {
-    console.log(monthList);
     return {
       ...getMainSumTimes(getEntireTimes(monthList!)!),
       ...getDetailSumTimes(monthList!),
     };
   };
-  console.log(getMonthSumtimes(thisList));
 
   const monthData: MonthDateType[] = [
     thisList,
@@ -188,8 +186,6 @@ function Chart({
         return getMonthChartHour(sumReading);
     }
   };
-
-  console.log(thisList, lastList);
 
   const weekDataSets = [
     {

@@ -24,7 +24,6 @@ function Label({ time, type }: LabelProps) {
   const checkInput = Object.values(time)
     .map((el) => el.match(/^\d{1,2}:\d{2}$/g))
     .includes(null);
-  console.log(entireTime);
   const title = getTitle(type);
 
   return (

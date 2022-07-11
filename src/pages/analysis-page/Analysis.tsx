@@ -42,7 +42,7 @@ function Analysis() {
 
   const [data, setData] = useState([]);
   const { state } = useLocation() as StateType;
-  console.log(state);
+
   const pageType = useRef(state.type);
 
   const thisMonth = moment().month() + 1;
@@ -136,7 +136,7 @@ function Analysis() {
         fourYearAgo: getYearList(data, 3),
         fiveYearAgo: getYearList(data, 4),
       };
-      console.log(thisList, lastList);
+
       return { thisList, lastList, restLastYear };
     }
   };
@@ -150,17 +150,15 @@ function Analysis() {
   thisList.sort((a: OneDay, b: OneDay) => {
     const aDate = [...a.date].map((el) => (el === "." ? "/" : el)).join("");
     const bDate = [...a.date].map((el) => (el === "." ? "/" : el)).join("");
-    console.log(aDate);
     const aDay = moment(aDate).valueOf();
     const bDay = moment(bDate).valueOf();
-    console.log(aDay);
     return aDay - bDay;
   });
 
   // 이번주, 저번주 전체 시간 가져오기
   const entireTimes = getEntireTimes(thisList);
   const lastEntireTimes = getEntireTimes(lastList);
-  console.log(thisList);
+
   // 주간
   const sumTimes = getMainSumTimes(entireTimes!);
   const lastSumTimes = getMainSumTimes(lastEntireTimes!);

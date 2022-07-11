@@ -11,7 +11,6 @@ type WeekStatusProps = {
 };
 
 function WeekStatus({ data }: WeekStatusProps) {
-  console.log(data);
   const percents = {
     improvePercent: getPercent(
       data.sumTimes.sumImprove,
@@ -67,8 +66,6 @@ function WeekStatus({ data }: WeekStatusProps) {
 }
 
 const getPercent = (current: number, last: number): string => {
-  console.log(last);
-  console.log(current);
   return last === 0 ? "100" : ((current / last) * 100).toFixed(1);
 };
 

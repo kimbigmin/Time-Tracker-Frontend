@@ -1,6 +1,7 @@
 import * as moment from "moment";
 
 const getDay = (date: string = "") => {
+  date = [...date].map((el) => (el === "." ? "/" : el)).join("");
   const day = date === "" ? moment().day() : moment(date).day();
   return switchDay(day);
 };

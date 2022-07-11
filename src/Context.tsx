@@ -14,7 +14,6 @@ export default function Context(props: any) {
     })
       .then((res: any) => res.json())
       .then((data: any) => {
-        console.log(data);
         if (data) {
           setUserObject(data);
         }
