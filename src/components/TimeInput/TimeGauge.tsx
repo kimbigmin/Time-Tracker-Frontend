@@ -1,18 +1,17 @@
 import { useState } from "react";
 import useInterval from "../../hooks/useInterval";
 import msToTime from "../../utils/msToTime";
+import * as moment from "moment";
 
 type TimeGaugeProps = {
-  tomorrow: number;
+  tomorrow: moment.Moment;
 };
 
 function TimeGauge({ tomorrow }: TimeGaugeProps) {
-  const [remainTime, setRemainTime] = useState<String>(
-    msToTime(tomorrow - Date.now())
-  );
+  const [remainTime, setRemainTime] = useState<String>(msToTime(tomorrow));
 
   useInterval(() => {
-    setRemainTime(msToTime(tomorrow - Date.now()));
+    setRemainTime(msToTime(tomorrow));
   }, 1000);
 
   return (

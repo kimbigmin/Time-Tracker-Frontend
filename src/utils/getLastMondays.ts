@@ -1,13 +1,14 @@
 // 현재 날짜와 week(1,2,3...)주를 파라미터로 받는다.
-export function getLastMondays(date: string, week: number): number {
-  const DAY_MS = 1000 * 60 * 60 * 24;
-  const WEEK_MS = DAY_MS * week * 7;
-  const msDate = new Date(date).getTime();
+import * as moment from "moment";
 
+export function getLastMondays(date: string, week: number): string {
   const result =
-    new Date(date).getDay() !== 0
-      ? msDate + WEEK_MS - (new Date(date).getDay() - 1) * DAY_MS
-      : msDate + WEEK_MS - 6 * DAY_MS;
-
+    moment(date).day() !== 0
+      ? moment(date)
+          .subtract(week * 7 + (moment(date).day() - 1), "days")
+          .format()
+      : moment(date)
+          .subtract(week * 7 + 6, "days")
+          .format();
   return result;
 }

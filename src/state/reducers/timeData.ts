@@ -42,15 +42,17 @@ export const { timesLoading, timesReceived, oneDayReceived } =
 
 export const fetchAllTime = () => async (dispatch: any) => {
   dispatch(timesLoading());
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/time`, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const res = await response.json();
-  dispatch(timesReceived(res));
+  const response = await (
+    await fetch(`${process.env.REACT_APP_SERVER_URL}/time`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  ).json();
+
+  dispatch(timesReceived(response));
 };
 
 export const fetchOneDay = (id?: string) => async (dispatch: any) => {

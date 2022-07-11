@@ -10,6 +10,7 @@ import { setDate } from "../../state/reducers/calendar";
 import { fetchAllTime } from "../../state/reducers/timeData";
 import { fetchPostTimeType } from "../../type";
 import { defaultState } from "../../state/reducers/timeData";
+import { EachTime } from "../../type";
 
 type InputFormProps = {
   finishedDay: string[];
@@ -25,25 +26,19 @@ function InputForm({ finishedDay }: InputFormProps) {
   const dispatch = useAppDispatch();
   const [allInput, setAllInput] = useState(defaultState);
 
+  const getSumMinutes = (time: EachTime): number => {
+    const sum = Object.values(time).reduce(
+      (acc: number, val: string) => acc + sumHoursMinutes(val),
+      0
+    );
+
+    return typeof sum === "number" ? sum : 0;
+  };
+
   const entireTime = {
-    entireImprove: minutesToHours(
-      Object.values(allInput.improve).reduce(
-        (acc, val) => acc + sumHoursMinutes(val),
-        0
-      )
-    ),
-    entirePrivate: minutesToHours(
-      Object.values(allInput.private).reduce(
-        (acc, val) => acc + sumHoursMinutes(val),
-        0
-      )
-    ),
-    entireWorks: minutesToHours(
-      Object.values(allInput.working).reduce(
-        (acc, val) => acc + sumHoursMinutes(val),
-        0
-      )
-    ),
+    entireImprove: minutesToHours(getSumMinutes(allInput.improve)),
+    entirePrivate: minutesToHours(getSumMinutes(allInput.private)),
+    entireWorks: minutesToHours(getSumMinutes(allInput.working)),
 
     entireSleep: minutesToHours(
       sumHoursMinutes(allInput.sleeping.night) +

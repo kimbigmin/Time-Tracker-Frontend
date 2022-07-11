@@ -27,6 +27,7 @@ import {
   Main,
 } from "./style";
 import { getEntireTimes } from "../../utils/getEntireTimes";
+import * as moment from "moment";
 
 function Analysis() {
   // 데이터 불러오기
@@ -44,12 +45,12 @@ function Analysis() {
   console.log(state);
   const pageType = useRef(state.type);
 
-  const thisMonth = new Date().getMonth() + 1;
-  const thisYear = new Date().getFullYear();
-  const today = new Date().getDate();
+  const thisMonth = moment().month() + 1;
+  const thisYear = moment().year();
+  const today = moment().date();
 
   // 이번주 월요일 일요일, 저번주 월요일 일요일 구하기
-  const [weekRange, setWeekRange] = useState(-1);
+  const [weekRange, setWeekRange] = useState(1);
 
   const selectedDate = useRef({
     year: `${thisYear}`,
@@ -57,17 +58,18 @@ function Analysis() {
   });
 
   const [inputDate, setInputDate] = useState(
-    `${selectedDate.current.year}.${selectedDate.current.month}.${today}`
+    `${selectedDate.current.year}/${selectedDate.current.month}/${today}`
   );
 
-  const standardTime = new Date(inputDate).toDateString();
+  const standardTime = moment(inputDate).format();
   const monday = getLastMondays(standardTime, weekRange);
-  const lastMonday = getLastMondays(standardTime, weekRange - 1);
+  const lastMonday = getLastMondays(standardTime, weekRange + 1);
   const sunday = getLastSunday(monday);
   const lastSunday = getLastSunday(lastMonday);
 
-  const isLastPage =
-    sunday < new Date(`${thisYear}.${thisMonth}.${today}`).getTime();
+  const isLastPage = moment(sunday).isSameOrBefore(
+    moment(`${thisYear}/${thisMonth}/${today}`)
+  );
 
   const getMonthList = (beforeMonth: number = 0): OneDay[] => {
     return data.filter((item: OneDay) => {
@@ -92,13 +94,23 @@ function Analysis() {
   const getDateList = (pageType: string, data: OneDay[]) => {
     if (pageType === "Week") {
       const thisList = data.filter((item: OneDay) => {
-        const date = new Date(item.date).getTime();
-        return date >= monday && date <= sunday;
+        const date = [...item.date]
+          .map((el) => (el === "." ? "/" : el))
+          .join("");
+        return (
+          moment(date).isSameOrAfter(moment(monday)) &&
+          moment(date).isSameOrBefore(moment(sunday))
+        );
       });
 
       const lastList = data.filter((item: OneDay) => {
-        const date = new Date(item.date).getTime();
-        return date >= lastMonday && date <= lastSunday;
+        const date = [...item.date]
+          .map((el) => (el === "." ? "/" : el))
+          .join("");
+        return (
+          moment(date).isSameOrAfter(moment(lastMonday)) &&
+          moment(date).isSameOrBefore(moment(lastSunday))
+        );
       });
 
       return { thisList, lastList };
@@ -136,9 +148,12 @@ function Analysis() {
 
   // 날짜 정렬 sort
   thisList.sort((a: OneDay, b: OneDay) => {
-    const aDay = new Date(a.date).getTime();
-    const bDay = new Date(b.date).getTime();
-
+    const aDate = [...a.date].map((el) => (el === "." ? "/" : el)).join("");
+    const bDate = [...a.date].map((el) => (el === "." ? "/" : el)).join("");
+    console.log(aDate);
+    const aDay = moment(aDate).valueOf();
+    const bDay = moment(bDate).valueOf();
+    console.log(aDay);
     return aDay - bDay;
   });
 
@@ -157,7 +172,7 @@ function Analysis() {
     sumDetailTimes,
     lastSumDetailTimes
   );
-  const isThisWeek = sunday + 86400000 > new Date().getTime();
+  const isThisWeek = moment(sunday).add(1, "days").isAfter(moment().format());
 
   const sleepingAverage = getSleepingAverage(
     sumDetailTimes,
@@ -180,7 +195,7 @@ function Analysis() {
   const searchDateHandler = () => {
     setWeekRange(0);
     setInputDate(
-      `${selectedDate.current.year}.${selectedDate.current.month}.1`
+      `${selectedDate.current.year}/${selectedDate.current.month}/1`
     );
   };
 
@@ -188,9 +203,9 @@ function Analysis() {
     const target = e.target as HTMLElement;
 
     if (target.dataset.type === "before") {
-      setWeekRange(weekRange - 1);
-    } else if (target.dataset.type === "after") {
       setWeekRange(weekRange + 1);
+    } else if (target.dataset.type === "after") {
+      setWeekRange(weekRange - 1);
     }
   };
 
@@ -237,13 +252,11 @@ function Analysis() {
               <button data-type="before" onClick={buttonWeekHandler}>
                 ◀️
               </button>
-              <p>{`${new Date(monday).getFullYear()}.${
-                new Date(monday).getMonth() + 1
-              }.${new Date(monday).getDate()} (월) ~ ${new Date(
-                sunday
-              ).getFullYear()}.${new Date(sunday).getMonth() + 1}.${new Date(
-                sunday
-              ).getDate()} (일)`}</p>
+              <p>{`${moment(monday).year()}.${
+                moment(monday).month() + 1
+              }.${moment(monday).date()} (월) ~ ${moment(sunday).year()}.${
+                moment(sunday).month() + 1
+              }.${moment(sunday).date()} (일)`}</p>
               {isLastPage && (
                 <button data-type="after" onClick={buttonWeekHandler}>
                   ▶️

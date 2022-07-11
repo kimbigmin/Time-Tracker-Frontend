@@ -22,6 +22,7 @@ import { getEntireTimes } from "../../utils/getEntireTimes";
 import DoughnutChart from "../../components/DoughnutChart/DoughnutChart";
 import { useAppSelector, useAppDispatch } from "../../state/hooks";
 import { fetchAllTime } from "../../state/reducers/timeData";
+import * as moment from "moment";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -32,24 +33,31 @@ function Dashboard() {
 
   const data = useAppSelector((state) => state.timeData.data);
 
-  const standardTime = new Date().toDateString();
+  const standardTime = moment().startOf("day").format();
   const monday = getLastMondays(standardTime, 0);
-  const lastMonday = getLastMondays(standardTime, -1);
+  const lastMonday = getLastMondays(standardTime, 1);
   const sunday = getLastSunday(monday);
   const lastSunday = getLastSunday(lastMonday);
 
   const thisWeekList: OneDay[] | undefined = data.filter((item: OneDay) => {
-    const date = new Date(item.date).getTime();
-    return date >= monday && date <= sunday;
+    const date = [...item.date].map((el) => (el === "." ? "/" : el)).join("");
+    return (
+      moment(date).isSameOrAfter(moment(monday)) &&
+      moment(date).isSameOrBefore(moment(sunday))
+    );
   });
   const lastWeekList: OneDay[] | undefined = data.filter((item: OneDay) => {
-    const date = new Date(item.date).getTime();
-    return date >= lastMonday && date <= lastSunday;
+    const date = [...item.date].map((el) => (el === "." ? "/" : el)).join("");
+    return (
+      moment(date).isSameOrAfter(moment(lastMonday)) &&
+      moment(date).isSameOrBefore(moment(lastSunday))
+    );
   });
-
+  console.log(thisWeekList, lastWeekList);
   const entireTimes = getEntireTimes(thisWeekList);
   const lastEntireTimes = getEntireTimes(lastWeekList);
 
+  console.log(entireTimes, lastEntireTimes);
   // 주간
   const weekStatusData = {
     sumTimes: getMainSumTimes(entireTimes!),

@@ -189,6 +189,8 @@ function Chart({
     }
   };
 
+  console.log(thisList, lastList);
+
   const weekDataSets = [
     {
       label: `지난${pageType[1]}`,
@@ -297,7 +299,7 @@ function Chart({
   const yearLabels = Array(5)
     .fill(null)
     .map((_, idx) => {
-      return `${new Date().getFullYear() - idx}년`;
+      return `${moment().year() - idx}년`;
     })
     .reverse();
 

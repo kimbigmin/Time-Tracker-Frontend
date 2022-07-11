@@ -2,6 +2,7 @@ import getDay from "../../utils/getDay";
 import TimeGauge from "./TimeGauge";
 import { Record } from "./Record";
 import { StyledTimeInput } from "./style";
+import * as moment from "moment";
 
 type TimeInputProps = {
   dataLength: number;
@@ -10,9 +11,8 @@ type TimeInputProps = {
 function TimeInput({ dataLength }: TimeInputProps) {
   const today = new Date().toLocaleDateString();
   const day = getDay();
-  const ONE_DAY_MS = 86400000;
-  const tomorrow: number = new Date(today).getTime() + ONE_DAY_MS;
-  const propsTime = tomorrow - Date.now();
+  const tomorrow = moment().add(1, "days").startOf("day");
+  const propsTime = tomorrow.diff(moment().format());
 
   return (
     <StyledTimeInput time={propsTime}>

@@ -1,5 +1,5 @@
-export const getLastSunday = (monday: number): number => {
-  const ONE_DAY_MS = 86400000;
+import * as moment from "moment";
 
-  return monday + ONE_DAY_MS * 6;
+export const getLastSunday = (monday: string): string => {
+  return moment(monday).add(6, "days").format();
 };

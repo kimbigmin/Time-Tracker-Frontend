@@ -1,5 +1,7 @@
+import * as moment from "moment";
+
 const getDay = (date: string = "") => {
-  const day = date === "" ? new Date().getDay() : new Date(date).getDay();
+  const day = date === "" ? moment().day() : moment(date).day();
   return switchDay(day);
 };
 

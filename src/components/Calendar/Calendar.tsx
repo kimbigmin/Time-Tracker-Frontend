@@ -9,7 +9,7 @@ import {
   setDate,
 } from "../../state/reducers/calendar";
 import { fetchOneDay } from "../../state/reducers/timeData";
-
+import * as moment from "moment";
 interface CalendarProps {
   finishedDay: string[];
   setFinishedDays: React.Dispatch<React.SetStateAction<string[]>>;
@@ -76,20 +76,21 @@ function Calendar({ finishedDay, setFinishedDays }: CalendarProps) {
   };
 
   // 월별에 따른 달력 데이터 불러오기
-  let dateLists = Array(37)
+  let dateList = Array(37)
     .fill("")
     .map((_, idx) => {
-      const DATE = new Date(yearAndMonth);
-      const startDay: number = DATE.getDay() !== 0 ? DATE.getDay() : 7;
-      const startMonth: number = DATE.getMonth() + 1;
+      const DATE = moment(yearAndMonth.replace(".", "/") + "/1").format();
+      const startDay: number =
+        moment(DATE).day() !== 0 ? moment(DATE).day() : 7;
+      const startMonth: number = moment(DATE).month() + 1;
       const thirtyDaysMonth: number[] = [4, 6, 9, 11];
       const date: number = idx + 2 - startDay;
       const isBlankDay = startDay - 1 > idx;
       const is31day = thirtyDaysMonth.includes(startMonth) && date > 30;
       const isLeapYearFeb =
-        startMonth === 2 && DATE.getFullYear() % 4 === 0 && date > 29;
+        startMonth === 2 && moment(DATE).year() % 4 === 0 && date > 29;
       const isCommonYearFeb =
-        startMonth === 2 && DATE.getFullYear() % 4 !== 0 && date > 28;
+        startMonth === 2 && moment(DATE).year() % 4 !== 0 && date > 28;
       const isOver31Day = date > 31;
 
       if (isBlankDay) return <li></li>;
@@ -127,7 +128,7 @@ function Calendar({ finishedDay, setFinishedDays }: CalendarProps) {
         </li>
       </div>
       <div className="days">{dayLists}</div>
-      <div className="dates">{dateLists}</div>
+      <div className="dates">{dateList}</div>
     </Container>
   );
 }
