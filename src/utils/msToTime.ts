@@ -7,7 +7,7 @@ function msToTime(tomorrow: moment.Moment): string {
   let minutes: string | number = tomorrow.diff(now, "minutes") % 60;
   let seconds: string | number = tomorrow.diff(now, "seconds") % 60;
 
-  hours = hours < 10 ? "0" + hours : hours;
+  hours = hours >= 0 ? (hours < 10 ? "0" + hours : hours) : 23;
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
 
