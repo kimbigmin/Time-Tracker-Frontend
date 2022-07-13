@@ -13,7 +13,7 @@ import {
   getMainTimesPercent,
   getDetailTimesPercent,
 } from "../../utils/getTimesPercent";
-import { getSleepingAverage } from "../../utils/getSleepAverage";
+// import { getSleepingAverage } from "../../utils/getSleepAverage";
 import { OneDay } from "../../type";
 import {
   Box,
@@ -28,6 +28,7 @@ import {
 } from "./style";
 import { getEntireTimes } from "../../utils/getEntireTimes";
 import * as moment from "moment";
+import { getAverageTime } from "../../utils/getAverageTime";
 
 function Analysis() {
   // 데이터 불러오기
@@ -164,7 +165,6 @@ function Analysis() {
   const lastSumTimes = getMainSumTimes(lastEntireTimes!);
   const sumDetailTimes = getDetailSumTimes(thisList);
   const lastSumDetailTimes = getDetailSumTimes(lastList);
-
   const mainTimesPercent = getMainTimesPercent(sumTimes, lastSumTimes);
   const detailTimesPercent = getDetailTimesPercent(
     sumDetailTimes,
@@ -172,11 +172,32 @@ function Analysis() {
   );
   const isThisWeek = moment(sunday).add(1, "days").isAfter(moment().format());
 
-  const sleepingAverage = getSleepingAverage(
-    sumDetailTimes,
-    lastSumDetailTimes,
-    isThisWeek
-  );
+  // const sleepingAverage = getSleepingAverage(
+  //   sumDetailTimes,
+  //   lastSumDetailTimes,
+  //   isThisWeek,
+  //   pageType.current[2]
+  // );
+
+  const sleepingAverage = {
+    thisWakeUp: getAverageTime({
+      time: sumDetailTimes.sumWakeUp,
+      dayNum: thisList.length,
+    }),
+    lastWakeUp: getAverageTime({
+      time: lastSumDetailTimes.sumWakeUp,
+      dayNum: lastList.length,
+    }),
+    thisNight: getAverageTime({
+      time: sumDetailTimes.sumNight,
+      dayNum: thisList.length,
+    }),
+    lastNight: getAverageTime({
+      time: lastSumDetailTimes.sumNight,
+      dayNum: lastList.length,
+    }),
+  };
+
   // 기타 시간사용 통계 퍼센트
 
   const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -319,15 +340,11 @@ function Analysis() {
               </h3>
               <h3>
                 평균 기상시간: <Time>{sleepingAverage.thisWakeUp}</Time>
-                <TimeDiff data={detailTimesPercent.wakePercent}>
-                  {detailTimesPercent.wakePercent}%
-                </TimeDiff>
+                <TimeDiff data={detailTimesPercent.wakePercent}></TimeDiff>
               </h3>
               <h3>
                 평균 취침시간: <Time>{sleepingAverage.thisNight}</Time>
-                <TimeDiff data={detailTimesPercent.nightPercent}>
-                  {detailTimesPercent.nightPercent}%
-                </TimeDiff>
+                <TimeDiff data={detailTimesPercent.nightPercent}></TimeDiff>
               </h3>
             </Box>
           </BoxContainer>

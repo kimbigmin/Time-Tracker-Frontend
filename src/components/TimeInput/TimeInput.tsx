@@ -16,7 +16,7 @@ function TimeInput({ dataLength }: TimeInputProps) {
 
   return (
     <StyledTimeInput time={propsTime}>
-      <TimeGauge tomorrow={tomorrow}></TimeGauge>
+      <TimeGauge tomorrow={tomorrow} time={propsTime}></TimeGauge>
       <Record dataLength={dataLength} today={today} day={day}></Record>
     </StyledTimeInput>
   );
