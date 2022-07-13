@@ -1,6 +1,7 @@
+import * as moment from "moment";
+
 export const randomContents = () => {
-  const randomIndex =
-    (new Date().getDate() * (new Date().getDay() + 1)) % wises.length;
+  const randomIndex = (moment().date() * (moment().day() + 1)) % wises.length;
   return wises[randomIndex];
 };
 

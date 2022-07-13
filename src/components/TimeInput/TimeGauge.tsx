@@ -5,10 +5,9 @@ import * as moment from "moment";
 
 type TimeGaugeProps = {
   tomorrow: moment.Moment;
-  time: number;
 };
 
-function TimeGauge({ tomorrow, time }: TimeGaugeProps) {
+function TimeGauge({ tomorrow }: TimeGaugeProps) {
   const [remainTime, setRemainTime] = useState<String>(msToTime(tomorrow));
 
   useInterval(() => {

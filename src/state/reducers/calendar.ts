@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import * as moment from "moment";
 
 interface CalendarState {
   yearAndMonth: string;
@@ -7,8 +8,8 @@ interface CalendarState {
 
 // 초기값
 const initialState: CalendarState = {
-  yearAndMonth: `${new Date().getFullYear()}.${new Date().getMonth() + 1}`,
-  selectedDate: new Date().getDate(),
+  yearAndMonth: `${moment().year()}.${moment().month() + 1}`,
+  selectedDate: moment().date(),
 };
 
 // slice

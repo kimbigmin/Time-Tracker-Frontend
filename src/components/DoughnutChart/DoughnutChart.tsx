@@ -6,6 +6,7 @@ import { getEntireTimes } from "../../utils/getEntireTimes";
 import { getMainSumTimes } from "../../utils/getSumTimesObj";
 import { minutesToHours } from "../../utils/minutesToHours";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import * as moment from "moment";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -14,8 +15,8 @@ type DoughnutChartProps = {
 };
 
 function DoughnutChart({ data }: DoughnutChartProps) {
-  const thisYear = new Date().getFullYear();
-  const thisMonth = new Date().getMonth() + 1;
+  const thisYear = moment().year();
+  const thisMonth = moment().month() + 1;
 
   const thisMonthList = data.filter((item: OneDay) => {
     return item.date.includes(`${thisYear}.${thisMonth}`);
