@@ -67,7 +67,6 @@ function InputForm({ finishedDay }: InputFormProps) {
       // fetch POST
       await fetchPostTime({ timeData });
       dispatch(fetchAllTime());
-      dispatch(setDate(selectedDate + 1));
       alert("시간이 저장되었습니다.");
     } else {
       alert("시간을 정확히 입력해주세요.");
