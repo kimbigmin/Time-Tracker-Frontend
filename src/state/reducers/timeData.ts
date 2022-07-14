@@ -69,7 +69,7 @@ export const fetchOneDay = (id?: string) => async (dispatch: any) => {
       }
     );
     const res = await response.json();
-    dispatch(oneDayReceived(res));
+    await dispatch(oneDayReceived(res));
   } else {
     dispatch(oneDayReceived(defaultState));
   }

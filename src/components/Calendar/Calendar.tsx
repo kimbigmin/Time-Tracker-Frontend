@@ -43,14 +43,12 @@ function Calendar({ finishedDay, setFinishedDays }: CalendarProps) {
     }
   };
 
-  const getFormInfo = async (data: OneDay[]) => {
-    if (data) {
-      const id = await getId(data);
-      if (id) {
-        dispatch(fetchOneDay(id));
-      } else {
-        dispatch(fetchOneDay());
-      }
+  const getFormInfo = (data: OneDay[]) => {
+    const id = getId(data);
+    if (id) {
+      dispatch(fetchOneDay(id));
+    } else {
+      dispatch(fetchOneDay());
     }
   };
 
@@ -67,7 +65,8 @@ function Calendar({ finishedDay, setFinishedDays }: CalendarProps) {
       setFinishedDays(done);
     }
     getInputDoneDates();
-  }, [data, yearAndMonth]);
+    getFormInfo(data);
+  }, [data, selectedDate, yearAndMonth]);
 
   const dateClickColorHandler = (date: number) => {
     if (selectedDate === date) return "selected";
@@ -108,7 +107,6 @@ function Calendar({ finishedDay, setFinishedDays }: CalendarProps) {
           className={dateClickColorHandler(date)}
           onClick={() => {
             dispatch(setDate(date));
-            getFormInfo(data);
           }}
         >
           {date}

@@ -18,7 +18,6 @@ type InputFormProps = {
 
 function InputForm({ finishedDay }: InputFormProps) {
   const oneDayData = useAppSelector((state) => state.timeData.formTime);
-
   const { yearAndMonth, selectedDate } = useAppSelector(
     (state) => state.calendar
   );
@@ -50,7 +49,6 @@ function InputForm({ finishedDay }: InputFormProps) {
     sumHoursMinutes(time)
   );
   const entireSum = entireArray.reduce((acc, val) => acc + val, 0);
-
   const checkInputFinish =
     entireArray.includes(NaN) || entireSum < 17 * 60 || entireSum > 28 * 60
       ? true
