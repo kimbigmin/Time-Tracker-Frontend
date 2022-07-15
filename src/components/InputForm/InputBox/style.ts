@@ -13,4 +13,12 @@ export const FormContainer = styled.div`
   .error {
     color: red;
   }
+
+  @media (max-width: 768px) {
+    margin: 0;
+    margin-top: 2rem;
+    h3 {
+      font-size: 1rem;
+    }
+  }
 `;

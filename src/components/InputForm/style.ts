@@ -12,6 +12,10 @@ export const SaveButton = styled.button`
   &:hover {
     background-color: #0b3b6c;
   }
+
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+  }
 `;
 
 export const UpdateButton = styled.button`
@@ -38,6 +42,12 @@ export const Container = styled.div`
     color: #1671cc;
     margin-bottom: 1rem;
   }
+
+  @media (max-width: 768px) {
+    margin-top: 2rem;
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -52,5 +62,13 @@ export const FormContainer = styled.div`
 
   .error {
     color: red;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0;
+
+    h3 {
+      font-size: 0.8rem;
+    }
   }
 `;

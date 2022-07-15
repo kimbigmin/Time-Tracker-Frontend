@@ -31,7 +31,7 @@ function Label({ time, type }: LabelProps) {
       <span
         style={{
           color: entireTime !== "NaN:NaN" && !checkInput ? "black" : "red",
-          fontSize: "1.1rem",
+          fontSize: "1rem",
         }}
       >
         {entireTime !== "NaN:NaN" && !checkInput
