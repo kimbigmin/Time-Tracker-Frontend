@@ -2,9 +2,7 @@ import { Container, Box } from "./style";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { OneDay } from "../../type";
-import { getEntireTimes } from "../../utils/getEntireTimes";
-import { getMainSumTimes } from "../../utils/getSumTimesObj";
-import { minutesToHours } from "../../utils/minutesToHours";
+import TimeTool from "../../utils/TimeTool";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import * as moment from "moment";
 
@@ -22,13 +20,21 @@ function DoughnutChart({ data }: DoughnutChartProps) {
     return item.date.includes(`${thisYear}.${thisMonth}`);
   });
 
-  const entireTimes = getEntireTimes(thisMonthList);
-  const sumTimes = getMainSumTimes(entireTimes!);
+  const entireTimes = TimeTool.getEntireTimes(thisMonthList);
+  const sumTimes = TimeTool.getMainSumTimes(entireTimes!);
 
-  const improveData = Number(minutesToHours(sumTimes.sumImprove).split(":")[0]);
-  const privateData = Number(minutesToHours(sumTimes.sumPrivate).split(":")[0]);
-  const worksData = Number(minutesToHours(sumTimes.sumWorks).split(":")[0]);
-  const sleepData = Number(minutesToHours(sumTimes.sumSleep).split(":")[0]);
+  const improveData = Number(
+    TimeTool.minutesToHours(sumTimes.sumImprove).split(":")[0]
+  );
+  const privateData = Number(
+    TimeTool.minutesToHours(sumTimes.sumPrivate).split(":")[0]
+  );
+  const worksData = Number(
+    TimeTool.minutesToHours(sumTimes.sumWorks).split(":")[0]
+  );
+  const sleepData = Number(
+    TimeTool.minutesToHours(sumTimes.sumSleep).split(":")[0]
+  );
 
   const chartData = {
     labels: ["자기계발", "개인시간", "일", "취침"],

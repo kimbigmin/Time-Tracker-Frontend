@@ -5,15 +5,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Chart from "../../components/BarChart/Chart";
 import { getData } from "../../utils/getData";
-import { getLastMondays } from "../../utils/getLastMondays";
-import { getMainSumTimes, getDetailSumTimes } from "../../utils/getSumTimesObj";
-import { convertMinToTime } from "../../utils/convertMinToTime";
-import { getLastSunday } from "../../utils/getLastSunday";
-import {
-  getMainTimesPercent,
-  getDetailTimesPercent,
-} from "../../utils/getTimesPercent";
-// import { getSleepingAverage } from "../../utils/getSleepAverage";
+import TimeTool from "../../utils/TimeTool";
 import { OneDay } from "../../type";
 import {
   Box,
@@ -26,9 +18,7 @@ import {
   TopBox,
   Main,
 } from "./style";
-import { getEntireTimes } from "../../utils/getEntireTimes";
 import * as moment from "moment";
-import { getAverageTime } from "../../utils/getAverageTime";
 
 function Analysis() {
   // 데이터 불러오기
@@ -63,10 +53,10 @@ function Analysis() {
   );
 
   const standardTime = moment(inputDate).format();
-  const monday = getLastMondays(standardTime, weekRange);
-  const lastMonday = getLastMondays(standardTime, weekRange + 1);
-  const sunday = getLastSunday(monday);
-  const lastSunday = getLastSunday(lastMonday);
+  const monday = TimeTool.getLastMondays(standardTime, weekRange);
+  const lastMonday = TimeTool.getLastMondays(standardTime, weekRange + 1);
+  const sunday = TimeTool.getLastSunday(monday);
+  const lastSunday = TimeTool.getLastSunday(lastMonday);
 
   const isLastPage = moment(sunday).isSameOrBefore(
     moment(`${thisYear}/${thisMonth}/${today}`)
@@ -157,42 +147,35 @@ function Analysis() {
   });
 
   // 이번주, 저번주 전체 시간 가져오기
-  const entireTimes = getEntireTimes(thisList);
-  const lastEntireTimes = getEntireTimes(lastList);
+  const entireTimes = TimeTool.getEntireTimes(thisList);
+  const lastEntireTimes = TimeTool.getEntireTimes(lastList);
 
   // 주간
-  const sumTimes = getMainSumTimes(entireTimes!);
-  const lastSumTimes = getMainSumTimes(lastEntireTimes!);
-  const sumDetailTimes = getDetailSumTimes(thisList);
-  const lastSumDetailTimes = getDetailSumTimes(lastList);
-  const mainTimesPercent = getMainTimesPercent(sumTimes, lastSumTimes);
-  const detailTimesPercent = getDetailTimesPercent(
+  const sumTimes = TimeTool.getMainSumTimes(entireTimes!);
+  const lastSumTimes = TimeTool.getMainSumTimes(lastEntireTimes!);
+  const sumDetailTimes = TimeTool.getDetailSumTimes(thisList);
+  const lastSumDetailTimes = TimeTool.getDetailSumTimes(lastList);
+  const mainTimesPercent = TimeTool.getMainTimesPercent(sumTimes, lastSumTimes);
+  const detailTimesPercent = TimeTool.getDetailTimesPercent(
     sumDetailTimes,
     lastSumDetailTimes
   );
-  const isThisWeek = moment(sunday).add(1, "days").isAfter(moment().format());
-
-  // const sleepingAverage = getSleepingAverage(
-  //   sumDetailTimes,
-  //   lastSumDetailTimes,
-  //   isThisWeek,
-  //   pageType.current[2]
-  // );
+  // const isThisWeek = moment(sunday).add(1, "days").isAfter(moment().format());
 
   const sleepingAverage = {
-    thisWakeUp: getAverageTime({
+    thisWakeUp: TimeTool.getAverageTime({
       time: sumDetailTimes.sumWakeUp,
       dayNum: thisList.length,
     }),
-    lastWakeUp: getAverageTime({
+    lastWakeUp: TimeTool.getAverageTime({
       time: lastSumDetailTimes.sumWakeUp,
       dayNum: lastList.length,
     }),
-    thisNight: getAverageTime({
+    thisNight: TimeTool.getAverageTime({
       time: sumDetailTimes.sumNight,
       dayNum: thisList.length,
     }),
-    lastNight: getAverageTime({
+    lastNight: TimeTool.getAverageTime({
       time: lastSumDetailTimes.sumNight,
       dayNum: lastList.length,
     }),
@@ -269,7 +252,7 @@ function Analysis() {
           {pageType.current[0] === "주간" && (
             <div className="week-page-toggle">
               <button data-type="before" onClick={buttonWeekHandler}>
-                ◀️
+                ◀
               </button>
               <p>{`${moment(monday).year()}.${
                 moment(monday).month() + 1
@@ -289,27 +272,30 @@ function Analysis() {
             <Box>
               <h2>이번{pageType.current[1]} 시간사용 통계</h2>
               <h3>
-                자기계발: <Time>{convertMinToTime(sumTimes.sumImprove)}</Time>
+                자기계발:{" "}
+                <Time>{TimeTool.convertMinToTime(sumTimes.sumImprove)}</Time>
                 <Percent data={mainTimesPercent.improvePercent}>
                   {mainTimesPercent.improvePercent}%
                 </Percent>
               </h3>
               <h3>
-                개인시간: <Time>{convertMinToTime(sumTimes.sumPrivate)}</Time>
+                개인시간:{" "}
+                <Time>{TimeTool.convertMinToTime(sumTimes.sumPrivate)}</Time>
                 <Percent data={mainTimesPercent.privatePercent}>
                   {mainTimesPercent.privatePercent}%
                 </Percent>
               </h3>
 
               <h3>
-                일: <Time>{convertMinToTime(sumTimes.sumWorks)}</Time>
+                일: <Time>{TimeTool.convertMinToTime(sumTimes.sumWorks)}</Time>
                 <Percent data={mainTimesPercent.worksPercent}>
                   {mainTimesPercent.worksPercent}%
                 </Percent>
               </h3>
 
               <h3>
-                취침: <Time>{convertMinToTime(sumTimes.sumSleep)}</Time>
+                취침:{" "}
+                <Time>{TimeTool.convertMinToTime(sumTimes.sumSleep)}</Time>
                 <Percent data={mainTimesPercent.sleepPercent}>
                   {mainTimesPercent.sleepPercent}%
                 </Percent>
@@ -319,21 +305,25 @@ function Analysis() {
               <h2>기타 시간사용 통계</h2>
               <h3>
                 공부시간:{" "}
-                <Time>{convertMinToTime(sumDetailTimes.sumStudy)}</Time>
+                <Time>
+                  {TimeTool.convertMinToTime(sumDetailTimes.sumStudy)}
+                </Time>
                 <Percent data={detailTimesPercent.studyPercent}>
                   {detailTimesPercent.studyPercent}%
                 </Percent>
               </h3>
               <h3>
                 게임시간:{" "}
-                <Time>{convertMinToTime(sumDetailTimes.sumGame)}</Time>
+                <Time>{TimeTool.convertMinToTime(sumDetailTimes.sumGame)}</Time>
                 <Percent data={detailTimesPercent.gamePercent}>
                   {detailTimesPercent.gamePercent}%
                 </Percent>
               </h3>
               <h3>
                 독서 및 신문:{" "}
-                <Time>{convertMinToTime(sumDetailTimes.sumReading)}</Time>
+                <Time>
+                  {TimeTool.convertMinToTime(sumDetailTimes.sumReading)}
+                </Time>
                 <Percent data={detailTimesPercent.readingPercent}>
                   {detailTimesPercent.readingPercent}%
                 </Percent>

@@ -1,5 +1,5 @@
 import { Gauge } from "./style";
-import { convertMinToTime } from "../../utils/convertMinToTime";
+import TimeTool from "../../utils/utils_for_time";
 
 type CategoryGaugeProps = {
   percent: string;
@@ -12,7 +12,7 @@ function CategoryGauge({ percent, sumTime, type }: CategoryGaugeProps) {
     <Gauge percent={percent} type={type}>
       <div className="top">
         <h3>
-          {getLabel(type)}: {convertMinToTime(sumTime)}
+          {getLabel(type)}: {TimeTool.convertMinToTime(sumTime)}
         </h3>
         <p>지난주 기준</p>
       </div>

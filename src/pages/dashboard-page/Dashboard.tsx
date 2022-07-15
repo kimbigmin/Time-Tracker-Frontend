@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Contribution from "../../components/Contribution/Contribution";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -13,12 +12,8 @@ import Motivation from "../../components/Motivation/Motivation";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import WeekStatus from "../../components/WeekStatus/WeekStatus";
-
-import { getLastMondays } from "../../utils/getLastMondays";
-import { getLastSunday } from "../../utils/getLastSunday";
 import { OneDay } from "../../type";
-import { getMainSumTimes, getDetailSumTimes } from "../../utils/getSumTimesObj";
-import { getEntireTimes } from "../../utils/getEntireTimes";
+import TimeTool from "../../utils/TimeTool";
 import DoughnutChart from "../../components/DoughnutChart/DoughnutChart";
 import { useAppSelector, useAppDispatch } from "../../state/hooks";
 import { fetchAllTime } from "../../state/reducers/timeData";
@@ -34,10 +29,10 @@ function Dashboard() {
   const data = useAppSelector((state) => state.timeData.data);
 
   const standardTime = moment().startOf("day").format();
-  const monday = getLastMondays(standardTime, 0);
-  const lastMonday = getLastMondays(standardTime, 1);
-  const sunday = getLastSunday(monday);
-  const lastSunday = getLastSunday(lastMonday);
+  const monday = TimeTool.getLastMondays(standardTime, 0);
+  const lastMonday = TimeTool.getLastMondays(standardTime, 1);
+  const sunday = TimeTool.getLastSunday(monday);
+  const lastSunday = TimeTool.getLastSunday(lastMonday);
 
   const thisWeekList: OneDay[] | undefined = data.filter((item: OneDay) => {
     const date = [...item.date].map((el) => (el === "." ? "/" : el)).join("");
@@ -54,15 +49,15 @@ function Dashboard() {
     );
   });
 
-  const entireTimes = getEntireTimes(thisWeekList);
-  const lastEntireTimes = getEntireTimes(lastWeekList);
+  const entireTimes = TimeTool.getEntireTimes(thisWeekList);
+  const lastEntireTimes = TimeTool.getEntireTimes(lastWeekList);
 
   // 주간
   const weekStatusData = {
-    sumTimes: getMainSumTimes(entireTimes!),
-    lastSumTimes: getMainSumTimes(lastEntireTimes!),
-    sumDetailTimes: getDetailSumTimes(thisWeekList!),
-    lastSumDetailTimes: getDetailSumTimes(lastWeekList!),
+    sumTimes: TimeTool.getMainSumTimes(entireTimes!),
+    lastSumTimes: TimeTool.getMainSumTimes(lastEntireTimes!),
+    sumDetailTimes: TimeTool.getDetailSumTimes(thisWeekList!),
+    lastSumDetailTimes: TimeTool.getDetailSumTimes(lastWeekList!),
   };
 
   return (

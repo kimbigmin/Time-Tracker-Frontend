@@ -1,5 +1,4 @@
-import { minutesToHours } from "../../../utils/minutesToHours";
-import sumHoursMinutes from "../../../utils/sumTime";
+import TimeTool from "../../../utils/TimeTool";
 interface LabelProps {
   time: {
     [key: string]: string;
@@ -10,13 +9,13 @@ interface LabelProps {
 function Label({ time, type }: LabelProps) {
   const entireTime =
     type === "sleeping"
-      ? minutesToHours(
-          sumHoursMinutes(Object.values(time)[0]) +
-            sumHoursMinutes(Object.values(time)[1])
+      ? TimeTool.minutesToHours(
+          TimeTool.sumHoursMinutes(Object.values(time)[0]) +
+            TimeTool.sumHoursMinutes(Object.values(time)[1])
         )
-      : minutesToHours(
+      : TimeTool.minutesToHours(
           Object.values(time).reduce(
-            (acc, val) => acc + sumHoursMinutes(val),
+            (acc, val) => acc + TimeTool.sumHoursMinutes(val),
             0
           )
         );

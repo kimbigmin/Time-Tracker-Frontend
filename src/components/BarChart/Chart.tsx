@@ -11,11 +11,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { getMainSumTimes, getDetailSumTimes } from "../../utils/getSumTimesObj";
-import { getEntireTimes } from "../../utils/getEntireTimes";
-import { convertMinToTime } from "../../utils/convertMinToTime";
 import { OneDay } from "../../type";
 import * as moment from "moment";
+import TimeTool from "../../utils/TimeTool";
 
 ChartJS.register(
   CategoryScale,
@@ -72,8 +70,8 @@ function Chart({
 
   const getMonthSumtimes = (monthList: OneDay[]) => {
     return {
-      ...getMainSumTimes(getEntireTimes(monthList!)!),
-      ...getDetailSumTimes(monthList!),
+      ...TimeTool.getMainSumTimes(TimeTool.getEntireTimes(monthList!)!),
+      ...TimeTool.getDetailSumTimes(monthList!),
     };
   };
 
@@ -146,7 +144,7 @@ function Chart({
       monthData.sumTimes;
 
     const getMonthChartHour = (time: number): number => {
-      return Number(convertMinToTime(time).split("시간")[0]);
+      return Number(TimeTool.convertMinToTime(time).split("시간")[0]);
     };
     switch (selectedList.list) {
       case "IMPROVE_TIME":
@@ -169,7 +167,7 @@ function Chart({
       yearData.sumTimes;
 
     const getMonthChartHour = (time: number): number => {
-      return Number(convertMinToTime(time).split("시간")[0]);
+      return Number(TimeTool.convertMinToTime(time).split("시간")[0]);
     };
     switch (selectedList.list) {
       case "IMPROVE_TIME":

@@ -1,4 +1,4 @@
-import getDay from "../../utils/getDay";
+import TimeTool from "../../utils/utils_for_time";
 import TimeGauge from "./TimeGauge";
 import { Record } from "./Record";
 import { StyledTimeInput } from "./style";
@@ -10,7 +10,7 @@ type TimeInputProps = {
 
 function TimeInput({ dataLength }: TimeInputProps) {
   const today = moment().format("YYYY-MM-DD");
-  const day = getDay();
+  const day = TimeTool.getDay();
   const tomorrow = moment().add(1, "days").startOf("day");
   const propsTime = tomorrow.diff(moment().format());
 

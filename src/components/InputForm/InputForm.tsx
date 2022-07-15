@@ -1,12 +1,9 @@
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { SaveButton, UpdateButton, Container } from "./style";
-import getDay from "../../utils/getDay";
+import TimeTool from "../../utils/utils_for_time";
 import InputBox from "./InputBox";
 import { useAppSelector, useAppDispatch } from "../../state/hooks";
-import { minutesToHours } from "../../utils/minutesToHours";
-import sumHoursMinutes from "../../utils/sumTime";
-import { setDate } from "../../state/reducers/calendar";
 import { fetchAllTime } from "../../state/reducers/timeData";
 import { fetchPostTimeType } from "../../type";
 import { defaultState } from "../../state/reducers/timeData";
@@ -27,7 +24,7 @@ function InputForm({ finishedDay }: InputFormProps) {
 
   const getSumMinutes = (time: EachTime): number => {
     const sum = Object.values(time).reduce(
-      (acc: number, val: string) => acc + sumHoursMinutes(val),
+      (acc: number, val: string) => acc + TimeTool.sumHoursMinutes(val),
       0
     );
 
@@ -35,18 +32,18 @@ function InputForm({ finishedDay }: InputFormProps) {
   };
 
   const entireTime = {
-    entireImprove: minutesToHours(getSumMinutes(allInput.improve)),
-    entirePrivate: minutesToHours(getSumMinutes(allInput.private)),
-    entireWorks: minutesToHours(getSumMinutes(allInput.working)),
+    entireImprove: TimeTool.minutesToHours(getSumMinutes(allInput.improve)),
+    entirePrivate: TimeTool.minutesToHours(getSumMinutes(allInput.private)),
+    entireWorks: TimeTool.minutesToHours(getSumMinutes(allInput.working)),
 
-    entireSleep: minutesToHours(
-      sumHoursMinutes(allInput.sleeping.night) +
-        sumHoursMinutes(allInput.sleeping.nap)
+    entireSleep: TimeTool.minutesToHours(
+      TimeTool.sumHoursMinutes(allInput.sleeping.night) +
+        TimeTool.sumHoursMinutes(allInput.sleeping.nap)
     ),
   };
 
   const entireArray = Object.values(entireTime).map((time) =>
-    sumHoursMinutes(time)
+    TimeTool.sumHoursMinutes(time)
   );
   const entireSum = entireArray.reduce((acc, val) => acc + val, 0);
   const checkInputFinish =
@@ -119,7 +116,7 @@ function InputForm({ finishedDay }: InputFormProps) {
   return (
     <>
       <Container>
-        <h2>{`선택 날짜: ${yearAndMonth}.${selectedDate} ${getDay(
+        <h2>{`선택 날짜: ${yearAndMonth}.${selectedDate} ${TimeTool.getDay(
           `${yearAndMonth}.${selectedDate}`
         )}`}</h2>
         <Grid container rowSpacing={0} columnSpacing={0}>
