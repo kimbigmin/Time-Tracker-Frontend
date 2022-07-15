@@ -1,4 +1,4 @@
-import TimeTool from "../../utils/utils_for_time";
+import TimeTool from "../../utils/TimeTool";
 import TimeGauge from "./TimeGauge";
 import { Record } from "./Record";
 import { StyledTimeInput } from "./style";

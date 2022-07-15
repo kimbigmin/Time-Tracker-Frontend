@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import { SaveButton, UpdateButton, Container } from "./style";
-import TimeTool from "../../utils/utils_for_time";
+import TimeTool from "../../utils/TimeTool";
 import InputBox from "./InputBox";
 import { useAppSelector, useAppDispatch } from "../../state/hooks";
 import { fetchAllTime } from "../../state/reducers/timeData";

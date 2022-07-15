@@ -1,5 +1,5 @@
 import { Gauge } from "./style";
-import TimeTool from "../../utils/utils_for_time";
+import TimeTool from "../../utils/TimeTool";
 
 type CategoryGaugeProps = {
   percent: string;

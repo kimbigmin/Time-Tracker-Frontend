@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useInterval from "../../hooks/useInterval";
-import TimeTool from "../../utils/utils_for_time";
+import TimeTool from "../../utils/TimeTool";
 import * as moment from "moment";
 
 type TimeGaugeProps = {
