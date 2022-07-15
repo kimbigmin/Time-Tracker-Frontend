@@ -8,6 +8,10 @@ export const Container = styled.div`
     font-size: 1rem;
     margin-bottom: 0.8rem;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const Box = styled.div`

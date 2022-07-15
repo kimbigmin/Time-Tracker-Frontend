@@ -90,4 +90,13 @@ export const StyledTimeInput = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    .time-input {
+      width: 100%;
+    }
+    .progress-bar {
+      width: 100%;
+    }
+  }
 `;

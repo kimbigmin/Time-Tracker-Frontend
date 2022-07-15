@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { StyledHeader } from "./style";
+import logo from "../../assets/images/Time_Tracker_logo.png";
 
 function Header() {
   const handlerLogOut = () => {
@@ -16,7 +17,9 @@ function Header() {
   return (
     <StyledHeader>
       <h1>
-        <Link to="/main">Time Tracker</Link>
+        <Link to="/main">
+          <img src={logo} alt="logo"></img>
+        </Link>
       </h1>
       <div>
         <span onClick={handlerLogOut}>LOGOUT</span>

@@ -63,14 +63,50 @@ function Dashboard() {
   return (
     <>
       <Header />
-      <Container maxWidth="lg" sx={{ marginTop: "3rem" }}>
-        <Grid container spacing={4}>
-          <Grid item xs={6}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          marginTop: "3rem",
+          "@media (max-width: 786px)": {
+            maxWidth: "100%",
+            paddingLeft: "0px",
+            paddingTop: "0px",
+          },
+        }}
+      >
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, md: 12 }}
+          sx={{
+            "@media (max-width: 786px)": {
+              maxWidth: "100%",
+              marginLeft: "0px",
+            },
+          }}
+        >
+          <Grid
+            item
+            xs={6}
+            sx={{
+              "@media (max-width: 786px)": {
+                maxWidth: "100%",
+              },
+            }}
+          >
             <TimeInput dataLength={data.length} />
             <WeekStatus data={weekStatusData} />
             <DoughnutChart data={data}></DoughnutChart>
           </Grid>
-          <Grid item xs={6}>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              "@media (max-width: 786px)": {
+                maxWidth: "100%",
+              },
+            }}
+          >
             <Motivation />
             <AnalysisBox>
               <h2>분석</h2>

@@ -20,6 +20,16 @@ export const Container = styled.div`
     margin-left: 2rem;
     margin-top: 1rem;
   }
+
+  @media (max-width: 768px) {
+    .cb_box {
+      overflow: scroll;
+    }
+
+    .month {
+      width: 150%;
+    }
+  }
 `;
 
 export const ContributionBox = styled.ul`

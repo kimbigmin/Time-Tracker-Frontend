@@ -5,7 +5,7 @@ export const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   border-bottom: 1px solid rgba(150, 150, 150, 0.235);
   h1 {
     font-size: 1.5rem;
@@ -15,5 +15,9 @@ export const StyledHeader = styled.header`
     font-weight: bold;
     cursor: pointer;
     font-size: 0.9rem;
+  }
+
+  img {
+    width: 6rem;
   }
 `;

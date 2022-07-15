@@ -7,6 +7,17 @@ export const WeekStatusBox = styled.div`
   width: 80%;
   margin-top: 5rem;
 
+  @media (max-width: 786px) {
+    ul {
+      max-width: 100%;
+    }
+    width: 100%;
+  }
+
+  ul {
+    max-width: 100%;
+  }
+
   h3 {
     font-size: 1rem;
     margin-bottom: 0.8rem;
@@ -32,6 +43,7 @@ export const Gauge = styled.li<any>`
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
       rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     border-radius: 10px;
+    max-width: 100%;
   }
   .gauge {
     position: absolute;

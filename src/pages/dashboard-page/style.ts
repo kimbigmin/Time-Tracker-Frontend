@@ -38,4 +38,8 @@ export const WeekBox = styled.li`
     transition-duration: 1s;
     transition-timing-function: 1s;
   }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;

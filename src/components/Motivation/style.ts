@@ -6,6 +6,10 @@ export const MotivationBox = styled.div`
   justify-content: center;
   width: 100%;
 
+  @media (max-width: 768px) {
+    margin-top: 5rem;
+  }
+
   h3 {
     font-size: 1rem;
     margin-bottom: 0.8rem;

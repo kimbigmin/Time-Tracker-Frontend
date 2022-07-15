@@ -45,8 +45,10 @@ function Contribution({ data }: ContributionProps) {
   return (
     <Container date={moment().date()}>
       <h3>{thisYear}년 기록일 상황</h3>
-      <ul className="month">{monthList}</ul>
-      <ContributionBox>{dateList}</ContributionBox>
+      <div className="cb_box">
+        <ul className="month">{monthList}</ul>
+        <ContributionBox>{dateList}</ContributionBox>
+      </div>
     </Container>
   );
 }
