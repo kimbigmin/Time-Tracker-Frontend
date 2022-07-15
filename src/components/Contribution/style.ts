@@ -28,6 +28,13 @@ export const Container = styled.div`
 
     .month {
       width: 150%;
+      justify-content: space-between;
+      margin-left: 0;
+    }
+
+    li {
+      font-size: 0.4rem;
+      margin-left: 1rem;
     }
   }
 `;

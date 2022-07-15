@@ -9,11 +9,20 @@ export const Container = styled.div`
   display: flex;
   /* justify-content: center; */
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const BoxContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 export const Box = styled.div`
@@ -31,11 +40,33 @@ export const Box = styled.div`
     margin: 0.5rem;
     color: rgba(31, 28, 28, 0.749);
   }
+
+  @media (max-width: 768px) {
+    margin: 1rem;
+  }
 `;
 
 export const ChartBox = styled(Box)`
   width: 60%;
   margin-left: 5rem;
+  position: relative;
+  height: 36vw;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+    padding: 1rem;
+    height: 100vw;
+    margin: auto;
+
+    ul {
+      margin: 0;
+    }
+
+    li {
+      font-size: 0.6rem;
+    }
+  }
 `;
 
 export const Time = styled.span`
@@ -117,6 +148,30 @@ export const TopBox = styled.div`
 
     button:hover {
       color: #1671cc;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .title {
+      font-size: 1.3rem;
+    }
+
+    .select-input {
+      font-size: 0.7rem;
+    }
+
+    .search-btn {
+      font-size: 0.7rem;
+    }
+
+    .week-page-toggle {
+      align-items: center;
+      text-align: center;
+      p {
+        width: 70%;
+      }
     }
   }
 `;

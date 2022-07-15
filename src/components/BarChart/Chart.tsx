@@ -312,11 +312,17 @@ function Chart({
         : yearDataSets,
   };
 
+  // window.addEventListener("resize", (e: any) => {
+  //   console.log(e.target.screen.width);
+  // });
+
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     layout: {
       padding: 30,
     },
+
     plugins: {
       legend: {
         position: "top" as const,
