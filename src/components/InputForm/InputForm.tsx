@@ -42,12 +42,28 @@ function InputForm({ finishedDay }: InputFormProps) {
     ),
   };
 
+  // 기상시간, 취침시간 입력 검증 함수
+  const checkSleepingTime = () => {
+    const { sleep, wake } = allInput.sleeping;
+
+    const checkInput = [sleep, wake]
+      .map((el) => el.match(/^\d{1,2}:\d{2}$/g))
+      .includes(null);
+
+    return checkInput;
+  };
+
   const entireArray = Object.values(entireTime).map((time) =>
     TimeTool.sumHoursMinutes(time)
   );
   const entireSum = entireArray.reduce((acc, val) => acc + val, 0);
+
+  // 시간 입력 폼 입력 검증
   const checkInputFinish =
-    entireArray.includes(NaN) || entireSum < 17 * 60 || entireSum > 28 * 60
+    entireArray.includes(NaN) ||
+    entireSum < 17 * 60 ||
+    entireSum > 28 * 60 ||
+    checkSleepingTime()
       ? true
       : false;
 
