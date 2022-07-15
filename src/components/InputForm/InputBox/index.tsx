@@ -26,8 +26,6 @@ function InputBox({ type, list, setInput, binding }: InputBoxProps) {
     return newState;
   });
 
-  console.log(time);
-
   useEffect(() => {
     setTime((current: any) => {
       return {
