@@ -170,7 +170,7 @@ export const TopBox = styled.div`
       align-items: center;
       text-align: center;
       p {
-        width: 70%;
+        width: 80%;
       }
     }
   }
