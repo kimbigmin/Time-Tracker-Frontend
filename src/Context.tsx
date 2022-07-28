@@ -5,7 +5,7 @@ export default function Context(props: any) {
   const [userObject, setUserObject] = useState<any>();
 
   useEffect(() => {
-    fetch(`https://timetracker-server.herokuapp.com/getuser`, {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/getuser`, {
       method: "GET",
       credentials: "include",
       headers: {
