@@ -12,7 +12,10 @@ export default function Context(props: any) {
         "Content-Type": "application/json",
       },
     })
-      .then((res: any) => res.json())
+      .then((res: any) => {
+        console.log(res);
+        return res.json();
+      })
       .then((data: any) => {
         if (data) {
           setUserObject(data);
