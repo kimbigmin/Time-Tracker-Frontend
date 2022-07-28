@@ -312,10 +312,6 @@ function Chart({
         : yearDataSets,
   };
 
-  // window.addEventListener("resize", (e: any) => {
-  //   console.log(e.target.screen.width);
-  // });
-
   const options = {
     responsive: true,
     maintainAspectRatio: false,

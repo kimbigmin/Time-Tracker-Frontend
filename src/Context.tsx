@@ -13,13 +13,11 @@ export default function Context(props: any) {
       },
     })
       .then((res: any) => {
-        console.log(res);
         if (res.status === 200) {
           return res.json();
         }
       })
       .then((data: any) => {
-        console.log(data);
         if (data) {
           setUserObject(data);
         }
