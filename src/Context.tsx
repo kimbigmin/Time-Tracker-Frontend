@@ -13,7 +13,7 @@ export default function Context(props: any) {
       },
     })
       .then((res: any) => {
-        console.log(res);
+        console.log(res.json());
         return res.json();
       })
       .then((data: any) => {
