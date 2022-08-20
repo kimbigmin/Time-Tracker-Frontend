@@ -1,5 +1,6 @@
 import { Container } from "./style";
 import logo from "../../assets/images/Time_Tracker_logo.png";
+import * as React from "react";
 
 function Footer() {
   return (
@@ -11,4 +12,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default React.memo(Footer);

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { StyledHeader } from "./style";
 import logo from "../../assets/images/Time_Tracker_logo.png";
+import * as React from "react";
 
 function Header() {
   const handlerLogOut = () => {
@@ -28,4 +29,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default React.memo(Header);
